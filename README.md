@@ -2,6 +2,10 @@
 
 日本語向けの「五行穿衣日更」静的サイト原型です。トップページは当日の JSON を読み込み、過去日付と明日予告にも切り替えられます。
 
+Public URL:
+
+https://hangzian.github.io/gogyo-outfit-daily/
+
 ## Run
 
 ```bash

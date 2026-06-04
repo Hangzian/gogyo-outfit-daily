@@ -158,6 +158,9 @@ const state = {
   currentEntry: null,
   locale: DEFAULT_LOCALE,
   pendingVisualSrc: "",
+  loadRequestId: 0,
+  visualRequestId: 0,
+  teaserRequestId: 0,
   cache: new Map(),
   dataRequests: new Map(),
   imageCache: new Map(),
@@ -230,7 +233,11 @@ async function loadDate(dateKey, options = {}) {
     dateKey = state.defaultDate;
   }
 
-  const entry = await fetchDaily(dateKey, state.locale);
+  const requestId = ++state.loadRequestId;
+  const locale = state.locale;
+  const entry = await fetchDaily(dateKey, locale);
+  if (requestId !== state.loadRequestId || locale !== state.locale) return;
+
   state.currentDate = dateKey;
   renderDaily(entry);
   updateArchiveState();
@@ -352,14 +359,22 @@ function buildVisualSrc(src, dateKey, locale) {
 
 function updateHeroImage(src) {
   const currentSrc = els.visualImage.currentSrc || els.visualImage.src;
-  if (currentSrc === src || els.visualImage.src === src || sameImagePath(currentSrc, src)) return;
+  const currentKey = imageCacheKey(currentSrc);
+  const targetKey = imageCacheKey(src);
+  const requestId = ++state.visualRequestId;
 
   state.pendingVisualSrc = src;
+  if (currentKey === targetKey) {
+    state.pendingVisualSrc = "";
+    return;
+  }
+
   const record = preloadImage(src, "high");
 
   const applyImage = () => {
-    if (state.pendingVisualSrc !== src) return;
+    if (requestId !== state.visualRequestId || state.pendingVisualSrc !== src) return;
     els.visualImage.src = src;
+    state.pendingVisualSrc = "";
   };
 
   if (record.loaded) {
@@ -368,16 +383,6 @@ function updateHeroImage(src) {
   }
 
   record.promise.then(applyImage).catch(applyImage);
-}
-
-function sameImagePath(a, b) {
-  try {
-    const left = new URL(a, window.location.href);
-    const right = new URL(b, window.location.href);
-    return left.origin === right.origin && left.pathname === right.pathname;
-  } catch {
-    return false;
-  }
 }
 
 function warmRecentImages() {
@@ -444,7 +449,10 @@ function preloadImage(src, priority = "auto") {
       resolve(image);
       if (image.decode) image.decode().catch(() => {});
     };
-    image.onerror = reject;
+    image.onerror = (error) => {
+      state.imageCache.delete(key);
+      reject(error);
+    };
   });
   record.promise.catch(() => {});
 
@@ -545,13 +553,17 @@ function updateArchiveState() {
 
 async function renderTomorrowTeaser() {
   const ui = UI[state.locale] || UI[DEFAULT_LOCALE];
+  const requestId = ++state.teaserRequestId;
+  const locale = state.locale;
   const target = state.tomorrowDate;
   if (!target || !state.dates.includes(target)) {
     els.tomorrowText.textContent = ui.tomorrowFallback;
     return;
   }
 
-  const entry = await fetchDaily(target, state.locale);
+  const entry = await fetchDaily(target, locale);
+  if (requestId !== state.teaserRequestId || locale !== state.locale) return;
+
   const firstColor = entry.colors.recommended[0]?.name || "";
   els.tomorrowText.textContent = ui.tomorrowTemplate(entry, firstColor);
 }

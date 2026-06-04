@@ -159,6 +159,8 @@ const state = {
   locale: DEFAULT_LOCALE,
   pendingVisualSrc: "",
   cache: new Map(),
+  dataRequests: new Map(),
+  imageCache: new Map(),
 };
 
 const els = {
@@ -193,10 +195,12 @@ async function init() {
     state.dates = index.dates;
     state.defaultDate = chooseDefaultDate(index);
     state.tomorrowDate = index.tomorrowDate || findOffsetDate(state.defaultDate, 1);
+    const requestedDate = readDateFromUrl() || state.defaultDate;
 
     bindActions();
     renderArchive();
-    await loadDate(readDateFromUrl() || state.defaultDate, { replaceUrl: true });
+    warmPriorityImages(requestedDate);
+    await loadDate(requestedDate, { replaceUrl: true });
     await renderTomorrowTeaser();
     warmRecentImages();
   } catch (error) {
@@ -238,17 +242,27 @@ async function fetchDaily(dateKey, locale) {
   if (state.cache.has(cacheKey)) {
     return state.cache.get(cacheKey);
   }
-
-  let daily;
-  try {
-    daily = await fetchJson(`./daily/${dateKey}.json`);
-  } catch {
-    daily = await fetchLegacyDaily(dateKey, locale);
+  if (state.dataRequests.has(cacheKey)) {
+    return state.dataRequests.get(cacheKey);
   }
 
-  const normalized = normalizeDaily(daily, locale);
-  state.cache.set(cacheKey, normalized);
-  return normalized;
+  const request = (async () => {
+    let daily;
+    try {
+      daily = await fetchJson(`./daily/${dateKey}.json`);
+    } catch {
+      daily = await fetchLegacyDaily(dateKey, locale);
+    }
+
+    const normalized = normalizeDaily(daily, locale);
+    state.cache.set(cacheKey, normalized);
+    return normalized;
+  })().finally(() => {
+    state.dataRequests.delete(cacheKey);
+  });
+
+  state.dataRequests.set(cacheKey, request);
+  return request;
 }
 
 async function fetchLegacyDaily(dateKey, locale) {
@@ -341,32 +355,19 @@ function updateHeroImage(src) {
   if (currentSrc === src || els.visualImage.src === src || sameImagePath(currentSrc, src)) return;
 
   state.pendingVisualSrc = src;
-  const nextImage = new Image();
-  nextImage.decoding = "async";
+  const record = preloadImage(src, "high");
 
-  const applyImage = async () => {
+  const applyImage = () => {
     if (state.pendingVisualSrc !== src) return;
-    try {
-      if (nextImage.decode) await nextImage.decode();
-    } catch {
-      // Some browsers reject decode for already-loaded images; the load event is enough.
-    }
-    if (state.pendingVisualSrc === src) {
-      els.visualImage.src = src;
-    }
+    els.visualImage.src = src;
   };
 
-  nextImage.onload = applyImage;
-  nextImage.onerror = () => {
-    if (state.pendingVisualSrc === src) {
-      els.visualImage.src = src;
-    }
-  };
-  nextImage.src = src;
-
-  if (nextImage.complete && nextImage.naturalWidth > 0) {
+  if (record.loaded) {
     applyImage();
+    return;
   }
+
+  record.promise.then(applyImage).catch(applyImage);
 }
 
 function sameImagePath(a, b) {
@@ -382,15 +383,7 @@ function sameImagePath(a, b) {
 function warmRecentImages() {
   const run = () => {
     const recentDates = [...state.dates].slice(-5);
-    recentDates.forEach(async (dateKey) => {
-      try {
-        const entry = await fetchDaily(dateKey, state.locale);
-        const visual = entry.visual || {};
-        preloadImage(buildVisualSrc(visual.src || "./assets/five-elements-editorial.png", entry.date, state.locale));
-      } catch {
-        // Visible content is already rendered; image warming is just a smoothness boost.
-      }
-    });
+    warmImageDates(recentDates, "low");
   };
 
   if ("requestIdleCallback" in window) {
@@ -400,10 +393,87 @@ function warmRecentImages() {
   }
 }
 
-function preloadImage(src) {
+function warmPriorityImages(dateKey) {
+  const dates = uniqueDates([
+    dateKey,
+    state.defaultDate,
+    state.tomorrowDate,
+    findNeighborDate(dateKey, -1),
+    findNeighborDate(dateKey, 1),
+  ]);
+  warmImageDates(dates, "high");
+}
+
+function warmImageDates(dateKeys, priority = "auto") {
+  dateKeys.filter((dateKey) => state.dates.includes(dateKey)).forEach(async (dateKey) => {
+    preloadExpectedModel(dateKey, priority);
+    try {
+      const entry = await fetchDaily(dateKey, state.locale);
+      const visual = entry.visual || {};
+      preloadImage(buildVisualSrc(visual.src || "./assets/five-elements-editorial.png", entry.date, state.locale), priority);
+    } catch {
+      // Visible content is already rendered; image warming is just a smoothness boost.
+    }
+  });
+}
+
+function preloadExpectedModel(dateKey, priority) {
+  preloadImage(buildVisualSrc(`./assets/daily/models/${dateKey}.jpg`, dateKey, state.locale), priority);
+}
+
+function preloadImage(src, priority = "auto") {
+  const key = imageCacheKey(src);
+  const cached = state.imageCache.get(key);
+  if (cached) return cached;
+
   const image = new Image();
   image.decoding = "async";
+  if ("fetchPriority" in image) {
+    image.fetchPriority = priority === "high" ? "high" : "low";
+  }
+
+  const record = {
+    image,
+    loaded: false,
+    promise: null,
+  };
+
+  record.promise = new Promise((resolve, reject) => {
+    image.onload = () => {
+      record.loaded = true;
+      resolve(image);
+      if (image.decode) image.decode().catch(() => {});
+    };
+    image.onerror = reject;
+  });
+  record.promise.catch(() => {});
+
+  state.imageCache.set(key, record);
   image.src = src;
+  if (image.complete && image.naturalWidth > 0) {
+    record.loaded = true;
+  }
+
+  return record;
+}
+
+function imageCacheKey(src) {
+  try {
+    const url = new URL(src, window.location.href);
+    return `${url.origin}${url.pathname}`;
+  } catch {
+    return src;
+  }
+}
+
+function uniqueDates(dates) {
+  return Array.from(new Set(dates.filter(Boolean)));
+}
+
+function findNeighborDate(dateKey, offset) {
+  const index = state.dates.indexOf(dateKey);
+  if (index < 0) return "";
+  return state.dates[index + offset] || "";
 }
 
 function renderSwatches(container, colors, mode) {
@@ -454,6 +524,7 @@ function renderArchive() {
     button.dataset.date = dateKey;
     button.textContent = formatShortDate(dateKey);
     button.addEventListener("click", async () => {
+      warmPriorityImages(dateKey);
       await loadDate(dateKey);
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
@@ -489,6 +560,7 @@ function bindActions() {
   document.querySelectorAll("[data-jump]").forEach((button) => {
     button.addEventListener("click", async () => {
       const target = button.dataset.jump === "tomorrow" ? state.tomorrowDate : state.defaultDate;
+      warmPriorityImages(target);
       await loadDate(target);
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
@@ -499,6 +571,7 @@ function bindActions() {
     localStorage.setItem("gogyo-locale", state.locale);
     renderStaticUI();
     renderArchive();
+    warmPriorityImages(state.currentDate || state.defaultDate);
     await loadDate(state.currentDate || state.defaultDate, { replaceUrl: true });
     await renderTomorrowTeaser();
     warmRecentImages();
@@ -519,6 +592,7 @@ function bindActions() {
     state.locale = chooseLocale(readLocaleFromUrl() || state.locale);
     renderStaticUI();
     renderArchive();
+    warmPriorityImages(readDateFromUrl() || state.defaultDate);
     await loadDate(readDateFromUrl() || state.defaultDate, { replaceUrl: true });
     await renderTomorrowTeaser();
   });

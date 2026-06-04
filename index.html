@@ -18,7 +18,7 @@
       content="https://gogyo-outfit-daily-ja.pages.dev/assets/daily/models/2026-06-04.jpg"
     />
     <meta property="og:type" content="website" />
-    <link rel="preload" as="image" href="./assets/daily/models/2026-06-04.jpg" />
+    <link rel="preload" as="image" href="./assets/daily/models/2026-06-04.jpg" fetchpriority="high" />
     <link rel="stylesheet" href="./styles.css?v=20260604-6" />
   </head>
   <body>
@@ -63,6 +63,8 @@
           <img
             src="./assets/daily/models/2026-06-04.jpg"
             alt="アイボリー、石のグレー、淡金を取り入れた男女モデルの土生金の日の装い"
+            decoding="async"
+            fetchpriority="high"
           />
           <figcaption id="visualCaption">今日の色を、生活の質感に落とし込む。</figcaption>
         </figure>
@@ -132,6 +134,6 @@
       <p data-i18n="footer">五行の装い · Japanese daily prototype</p>
     </footer>
 
-    <script src="./app.js?v=20260604-8" type="module"></script>
+    <script src="./app.js?v=20260604-9" type="module"></script>
   </body>
 </html>

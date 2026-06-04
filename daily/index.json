@@ -1,5 +1,6 @@
 {
-  "locale": "ja-JP",
+  "defaultLocale": "ja",
+  "locales": ["ja", "zh", "en", "ko"],
   "defaultDate": "2026-06-04",
   "tomorrowDate": "2026-06-05",
   "dates": [

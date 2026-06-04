@@ -1,0 +1,148 @@
+{
+  "id": "2026-06-05",
+  "date": "2026-06-05",
+  "status": "preview",
+  "elementCycle": {
+    "source": "metal",
+    "target": "water",
+    "relationship": "generating"
+  },
+  "visual": {
+    "src": "./assets/daily/models/2026-06-05.png",
+    "position": "center top"
+  },
+  "locales": {
+    "ja": {
+      "locale": "ja-JP",
+      "dateDisplay": "2026.06.05（金）",
+      "theme": {
+        "title": "金が水を澄ませる日",
+        "displayTitle": "金が水を\n澄ませる日",
+        "subtitle": "端正さが、静かな流れを生む日。白、銀、淡いブルーを使うと、頭の中まで軽く整います。"
+      },
+      "colors": {
+        "recommended": [
+          { "name": "白銀", "hex": "#deded9" },
+          { "name": "薄水色", "hex": "#a9c5cc" },
+          { "name": "墨紺", "hex": "#273747" }
+        ],
+        "avoid": [
+          { "name": "砂っぽい黄", "hex": "#b99b55" },
+          { "name": "くすんだ茶", "hex": "#7a5b44" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "明日は、輪郭のきれいな服と涼しげな色が合います。白銀のシャツ、薄水色のストール、墨紺のボトムを合わせると、清潔感と落ち着きが同時に出ます。"
+      },
+      "scenes": [
+        { "label": "通勤", "text": "白銀のトップスに墨紺を合わせ、涼しい集中感をつくります。" },
+        { "label": "デート", "text": "薄水色は顔まわりに。柔らかく、近づきやすい印象に。" },
+        { "label": "商談", "text": "金属感のある小物は一点だけ。言葉の輪郭が締まります。" },
+        { "label": "旅行", "text": "軽いブルーと白で、移動中の写真も涼しげに残せます。" },
+        { "label": "撮影", "text": "水辺やガラスの背景には、墨紺で引き締めると大人っぽく見えます。" }
+      ],
+      "dailyNote": "明日は、すっきりした色で流れをつくり、余計な重さを置いていく。",
+      "visualCaption": "金の端正さが、水の透明感を呼ぶ。",
+      "visualAlt": "白銀、薄水色、墨紺を取り入れた男女モデルの金生水の日の装い"
+    },
+    "zh": {
+      "locale": "zh-CN",
+      "dateDisplay": "2026.06.05（周五）",
+      "theme": {
+        "title": "金生水的一天",
+        "displayTitle": "金生水\n的一天",
+        "subtitle": "利落感带来安静流动的一天。白、银、浅蓝会让整个人看起来更清透，思路也更轻。"
+      },
+      "colors": {
+        "recommended": [
+          { "name": "白银", "hex": "#deded9" },
+          { "name": "浅水蓝", "hex": "#a9c5cc" },
+          { "name": "墨蓝", "hex": "#273747" }
+        ],
+        "avoid": [
+          { "name": "沙黄色", "hex": "#b99b55" },
+          { "name": "灰棕", "hex": "#7a5b44" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "明天适合轮廓清楚的衣服和偏凉的颜色。白银色上衣、浅水蓝披肩或下装、墨蓝外套，会同时带来清洁感和稳定感。"
+      },
+      "scenes": [
+        { "label": "通勤", "text": "白银色上衣配墨蓝，营造凉爽的专注感。" },
+        { "label": "约会", "text": "浅水蓝放在脸周，会显得柔和、容易亲近。" },
+        { "label": "商谈", "text": "金属感小物只保留一点，表达会更有边界。" },
+        { "label": "旅行", "text": "浅蓝和白色很适合移动中的照片，清爽不费力。" },
+        { "label": "拍照", "text": "水边或玻璃背景里，用墨蓝压住会更成熟。" }
+      ],
+      "dailyNote": "明天，用清爽颜色做出流动感，把多余的沉重放下。",
+      "visualCaption": "金的利落，唤出水的透明。",
+      "visualAlt": "男女模特穿着白银、浅水蓝和墨蓝的金生水穿搭"
+    },
+    "en": {
+      "locale": "en",
+      "dateDisplay": "2026.06.05 (Fri)",
+      "theme": {
+        "title": "Metal Clears Water",
+        "displayTitle": "Metal Clears\nWater",
+        "subtitle": "A day when clean structure creates quiet flow. White, silver, pale blue, and ink navy keep the mind light."
+      },
+      "colors": {
+        "recommended": [
+          { "name": "White silver", "hex": "#deded9" },
+          { "name": "Pale water blue", "hex": "#a9c5cc" },
+          { "name": "Ink navy", "hex": "#273747" }
+        ],
+        "avoid": [
+          { "name": "Sandy yellow", "hex": "#b99b55" },
+          { "name": "Dusty brown", "hex": "#7a5b44" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "Choose clean silhouettes and cool tones. A white-silver top, pale-blue layer, and ink-navy jacket create clarity without feeling cold."
+      },
+      "scenes": [
+        { "label": "Commute", "text": "White silver with ink navy creates a cool focus." },
+        { "label": "Date", "text": "Pale water blue near the face feels soft and approachable." },
+        { "label": "Meeting", "text": "Keep metallic accessories to one piece for a crisp outline." },
+        { "label": "Travel", "text": "Pale blue and white keep travel photos light and fresh." },
+        { "label": "Photos", "text": "Ink navy adds maturity around water or glass backgrounds." }
+      ],
+      "dailyNote": "Use clear colors to create flow, and leave extra weight behind.",
+      "visualCaption": "Metal's clean edge calls in water's clarity.",
+      "visualAlt": "Male and female models wearing white silver, pale water blue, and ink navy for a Metal clears Water day"
+    },
+    "ko": {
+      "locale": "ko-KR",
+      "dateDisplay": "2026.06.05（금）",
+      "theme": {
+        "title": "금이 물을 맑게 하는 날",
+        "displayTitle": "금이 물을\n맑게 하는 날",
+        "subtitle": "단정함이 고요한 흐름을 만드는 날입니다. 흰색, 은빛, 연한 블루를 쓰면 머릿속까지 가볍게 정리됩니다."
+      },
+      "colors": {
+        "recommended": [
+          { "name": "화이트 실버", "hex": "#deded9" },
+          { "name": "연한 물빛", "hex": "#a9c5cc" },
+          { "name": "먹빛 네이비", "hex": "#273747" }
+        ],
+        "avoid": [
+          { "name": "모래빛 노랑", "hex": "#b99b55" },
+          { "name": "탁한 브라운", "hex": "#7a5b44" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "내일은 라인이 깨끗한 옷과 시원한 색이 잘 어울립니다. 화이트 실버 상의, 연한 물빛 레이어, 먹빛 네이비 아우터를 맞추면 청결감과 안정감이 함께 납니다."
+      },
+      "scenes": [
+        { "label": "출근", "text": "화이트 실버 상의에 먹빛 네이비를 더해 시원한 집중감을 만드세요." },
+        { "label": "데이트", "text": "연한 물빛은 얼굴 가까이에 두면 부드럽고 다가가기 쉬운 인상입니다." },
+        { "label": "미팅", "text": "금속 느낌의 소품은 하나만 두면 말의 윤곽도 또렷해집니다." },
+        { "label": "여행", "text": "가벼운 블루와 화이트는 이동 중 사진도 산뜻하게 남깁니다." },
+        { "label": "촬영", "text": "물가나 유리 배경에는 먹빛 네이비로 잡아 주면 성숙해 보입니다." }
+      ],
+      "dailyNote": "내일은 맑은 색으로 흐름을 만들고 불필요한 무게를 내려놓으세요.",
+      "visualCaption": "금의 단정함이 물의 투명함을 부릅니다.",
+      "visualAlt": "화이트 실버, 연한 물빛, 먹빛 네이비를 입은 남녀 모델의 금생수 스타일"
+    }
+  }
+}

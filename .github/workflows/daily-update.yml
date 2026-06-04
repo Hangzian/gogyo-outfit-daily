@@ -1,0 +1,59 @@
+name: Daily content update
+
+on:
+  schedule:
+    - cron: "10 21 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Date to generate, YYYY-MM-DD. Leave empty for today's date in Tokyo."
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      USE_OPENAI_TEXT: ${{ vars.USE_OPENAI_TEXT || 'false' }}
+      GENERATE_IMAGES: ${{ vars.GENERATE_IMAGES || 'false' }}
+      OPENAI_TEXT_MODEL: ${{ vars.OPENAI_TEXT_MODEL || 'gpt-5-mini' }}
+      OPENAI_IMAGE_MODEL: ${{ vars.OPENAI_IMAGE_MODEL || 'gpt-image-2' }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate daily multilingual content
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            node scripts/generate-daily.mjs --date "${{ github.event.inputs.date }}"
+          else
+            node scripts/generate-daily.mjs
+          fi
+
+      - name: Commit generated content
+        run: |
+          git config user.name "gogyo-bot"
+          git config user.email "gogyo-bot@users.noreply.github.com"
+          git add daily assets/daily/models
+          if git diff --cached --quiet; then
+            echo "No daily content changes to commit."
+          else
+            git commit -m "Update daily outfit content"
+            git push
+          fi
+
+      - name: Deploy to Cloudflare Pages
+        if: ${{ env.CLOUDFLARE_API_TOKEN != '' && env.CLOUDFLARE_ACCOUNT_ID != '' }}
+        run: npm run deploy:cloudflare

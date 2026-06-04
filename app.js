@@ -106,7 +106,12 @@ function renderDaily(entry) {
   els.dailyNote.textContent = entry.dailyNote;
   els.outfitSummary.textContent = entry.outfitAdvice.summary;
   const visual = entry.visual || {};
-  els.visualImage.src = visual.src || "./assets/five-elements-editorial.png";
+  const visualSrc = buildVisualSrc(visual.src || "./assets/five-elements-editorial.png", entry.date);
+  if (els.visualImage.currentSrc !== visualSrc && els.visualImage.src !== visualSrc) {
+    els.visualImage.classList.add("is-swapping");
+    els.visualImage.onload = () => els.visualImage.classList.remove("is-swapping");
+    els.visualImage.src = visualSrc;
+  }
   els.visualImage.alt = visual.alt || "東洋の布色見本と漆器を配した、現代的な雑誌風の五行イメージ";
   els.visualImage.style.objectPosition = visual.position || "center";
   els.visualCaption.textContent = visual.caption || entry.visualCaption;
@@ -115,6 +120,12 @@ function renderDaily(entry) {
   renderSwatches(els.luckyColors, entry.colors.recommended, "chip");
   renderSwatches(els.avoidColors, entry.colors.avoid, "chip");
   renderScenes(entry.scenes);
+}
+
+function buildVisualSrc(src, dateKey) {
+  const url = new URL(src, window.location.href);
+  url.searchParams.set("date", dateKey);
+  return url.href;
 }
 
 function renderSwatches(container, colors, mode) {
@@ -164,7 +175,10 @@ function renderArchive() {
     button.type = "button";
     button.dataset.date = dateKey;
     button.textContent = formatShortDate(dateKey);
-    button.addEventListener("click", () => loadDate(dateKey));
+    button.addEventListener("click", async () => {
+      await loadDate(dateKey);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
     els.archiveList.append(button);
   });
 }

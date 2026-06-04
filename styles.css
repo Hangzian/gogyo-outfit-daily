@@ -247,6 +247,11 @@ h2 {
   object-fit: cover;
   border-radius: 0;
   box-shadow: var(--shadow);
+  transition: opacity 180ms ease;
+}
+
+.hero-visual img.is-swapping {
+  opacity: 0.32;
 }
 
 .hero-visual::after {

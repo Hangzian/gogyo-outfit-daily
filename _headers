@@ -1,6 +1,9 @@
 /daily/*
   Cache-Control: no-store
 
+/assets/daily/*
+  Cache-Control: no-store
+
 /index.html
   Cache-Control: no-store
 
@@ -10,5 +13,5 @@
 /styles.css
   Cache-Control: no-store
 
-/assets/*
+/assets/five-elements-editorial.png
   Cache-Control: public, max-age=31536000, immutable

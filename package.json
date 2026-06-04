@@ -1,0 +1,13 @@
+{
+  "name": "gogyo-outfit-daily",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "rm -rf dist && mkdir -p dist && cp index.html styles.css app.js _headers _redirects dist/ && cp -R assets daily dist/",
+    "preview": "python3 -m http.server 4173 --directory dist",
+    "deploy:cloudflare": "npm run build && npx wrangler pages deploy dist --project-name gogyo-outfit-daily"
+  },
+  "devDependencies": {
+    "wrangler": "^4.19.1"
+  }
+}

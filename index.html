@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>五行の装い | 今日のラッキーカラー</title>
+    <meta
+      name="description"
+      content="中国五行の考え方を、毎日の服選びに。今日のラッキーカラー、控えたい色、シーン別の装いを日本語でお届けします。"
+    />
+    <meta property="og:title" content="五行の装い | 今日のラッキーカラー" />
+    <meta
+      property="og:description"
+      content="今日の五行テーマと、通勤・商談・旅行にも使える装いの色案内。"
+    />
+    <meta property="og:image" content="./assets/five-elements-editorial.png" />
+    <meta property="og:type" content="website" />
+    <link rel="preload" as="image" href="./assets/five-elements-editorial.png" />
+    <link rel="stylesheet" href="./styles.css?v=20260604-3" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="サイトヘッダー">
+      <a class="brand" href="./" aria-label="五行の装い ホーム">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>五行の装い</span>
+      </a>
+      <nav class="top-nav" aria-label="日付ナビゲーション">
+        <button class="nav-link" data-jump="today" type="button">今日</button>
+        <button class="nav-link" data-jump="tomorrow" type="button">明日</button>
+        <a class="nav-link" href="#archive">過去</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="daily-hero" aria-labelledby="daily-title">
+        <div class="hero-copy">
+          <p class="kicker">毎朝更新 · 五行穿衣</p>
+          <p class="date-line" id="dateLine">読み込み中</p>
+          <h1 id="daily-title">今日の装いを整える</h1>
+          <p class="theme-subtitle" id="themeSubtitle"></p>
+
+          <div class="color-rail" id="luckyColorRail" aria-label="今日のおすすめ色"></div>
+
+          <div class="hero-actions">
+            <button class="primary-action" id="shareButton" type="button">Xでシェア</button>
+            <button class="quiet-action" data-jump="tomorrow" type="button">明日の予告</button>
+          </div>
+        </div>
+
+        <figure class="hero-visual">
+          <img
+            src="./assets/five-elements-editorial.png"
+            alt="東洋の布色見本と漆器を配した、現代的な雑誌風の五行イメージ"
+          />
+          <figcaption id="visualCaption">今日の色を、生活の質感に落とし込む。</figcaption>
+        </figure>
+      </section>
+
+      <section class="content-band main-read" aria-label="今日の詳しい案内">
+        <div class="summary-block">
+          <div class="section-label">Today's Tone</div>
+          <p id="dailyNote" class="daily-note"></p>
+        </div>
+
+        <div class="guidance-grid">
+          <article class="guidance-panel">
+            <div class="section-label">Lucky Colors</div>
+            <h2>取り入れたい色</h2>
+            <div class="chip-list" id="luckyColors"></div>
+          </article>
+
+          <article class="guidance-panel caution">
+            <div class="section-label">Careful Colors</div>
+            <h2>控えめにしたい色</h2>
+            <div class="chip-list" id="avoidColors"></div>
+          </article>
+        </div>
+
+        <section class="advice-section" aria-labelledby="adviceTitle">
+          <div>
+            <div class="section-label">Styling</div>
+            <h2 id="adviceTitle">装いのすすめ</h2>
+          </div>
+          <p id="outfitSummary" class="body-copy"></p>
+        </section>
+
+        <section class="scene-section" aria-labelledby="sceneTitle">
+          <div>
+            <div class="section-label">Scenes</div>
+            <h2 id="sceneTitle">シーン別の整え方</h2>
+          </div>
+          <div class="scene-grid" id="sceneGrid"></div>
+        </section>
+      </section>
+
+      <section class="content-band preview-band" aria-labelledby="previewTitle">
+        <div class="preview-copy">
+          <div class="section-label">Tomorrow</div>
+          <h2 id="previewTitle">明日の予告</h2>
+          <p id="tomorrowText"></p>
+        </div>
+        <button class="quiet-action dark" data-jump="tomorrow" type="button">詳しく見る</button>
+      </section>
+
+      <section class="content-band archive-band" id="archive" aria-labelledby="archiveTitle">
+        <div>
+          <div class="section-label">Archive</div>
+          <h2 id="archiveTitle">過去の日更</h2>
+        </div>
+        <div class="archive-list" id="archiveList"></div>
+      </section>
+
+      <section class="follow-strip" aria-label="更新案内">
+        <p>日々の装いに、少しだけ余白と流れを。</p>
+        <a href="https://x.com/" target="_blank" rel="noreferrer">Xで更新を追う</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>五行の装い · Japanese daily prototype</p>
+    </footer>
+
+    <script src="./app.js?v=20260604-2" type="module"></script>
+  </body>
+</html>

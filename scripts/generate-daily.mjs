@@ -1,6 +1,8 @@
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
+import { execFile } from "node:child_process";
 import path from "node:path";
+import { promisify } from "node:util";
 
 const ROOT = process.cwd();
 const DAILY_DIR = path.join(ROOT, "daily");
@@ -8,13 +10,15 @@ const MODEL_DIR = path.join(ROOT, "assets", "daily", "models");
 const INDEX_PATH = path.join(DAILY_DIR, "index.json");
 const LOCALES = ["ja", "zh", "en", "ko"];
 const TIME_ZONE = "Asia/Tokyo";
+const IMAGE_QUALITY = Number(process.env.DAILY_IMAGE_QUALITY || 82);
+const runFile = promisify(execFile);
 
 const PRESETS = [
   {
     key: "wood_fire",
     source: "wood",
     target: "fire",
-    baseImage: "2026-06-02.png",
+    baseImage: "2026-06-02.jpg",
     colors: {
       recommended: [
         ["#9caf88", { ja: "若草色", zh: "嫩草绿", en: "Young sage", ko: "연한 풀빛" }],
@@ -73,7 +77,7 @@ const PRESETS = [
     key: "fire_earth",
     source: "fire",
     target: "earth",
-    baseImage: "2026-06-03.png",
+    baseImage: "2026-06-03.jpg",
     colors: {
       recommended: [
         ["#cdbb96", { ja: "砂色", zh: "砂色", en: "Sand beige", ko: "모래빛" }],
@@ -91,7 +95,7 @@ const PRESETS = [
     key: "earth_metal",
     source: "earth",
     target: "metal",
-    baseImage: "2026-06-04.png",
+    baseImage: "2026-06-04.jpg",
     colors: {
       recommended: [
         ["#f1ead8", { ja: "アイボリー", zh: "象牙白", en: "Ivory", ko: "아이보리" }],
@@ -109,7 +113,7 @@ const PRESETS = [
     key: "metal_water",
     source: "metal",
     target: "water",
-    baseImage: "2026-06-05.png",
+    baseImage: "2026-06-05.jpg",
     colors: {
       recommended: [
         ["#deded9", { ja: "白銀", zh: "白银", en: "White silver", ko: "화이트 실버" }],
@@ -182,7 +186,8 @@ const daily = await buildDaily(targetDate, preset);
 
 await mkdir(DAILY_DIR, { recursive: true });
 await mkdir(MODEL_DIR, { recursive: true });
-await ensureImage(targetDate, preset, daily);
+daily.visual = daily.visual || {};
+daily.visual.src = await ensureImage(targetDate, preset, daily);
 await writeFile(path.join(DAILY_DIR, `${targetDate}.json`), `${JSON.stringify(daily, null, 2)}\n`);
 await updateIndex(targetDate);
 
@@ -202,7 +207,7 @@ async function buildDaily(dateKey, preset) {
       relationship: "generating",
     },
     visual: {
-      src: `./assets/daily/models/${dateKey}.png`,
+      src: `./assets/daily/models/${dateKey}.jpg`,
       position: "center top",
     },
     locales: Object.fromEntries(LOCALES.map((locale) => [locale, buildLocale(dateKey, locale, preset)])),
@@ -279,7 +284,7 @@ async function maybeGenerateWithOpenAI(dateKey, preset) {
     const parsed = JSON.parse(text);
     parsed.id = dateKey;
     parsed.date = dateKey;
-    parsed.visual = parsed.visual || { src: `./assets/daily/models/${dateKey}.png`, position: "center top" };
+    parsed.visual = parsed.visual || { src: `./assets/daily/models/${dateKey}.jpg`, position: "center top" };
     return parsed;
   } catch {
     console.warn("OpenAI returned non-JSON content; using template fallback.");
@@ -288,16 +293,59 @@ async function maybeGenerateWithOpenAI(dateKey, preset) {
 }
 
 async function ensureImage(dateKey, preset, daily) {
-  const destination = path.join(MODEL_DIR, `${dateKey}.png`);
-  if (existsSync(destination)) return;
+  const jpgName = `${dateKey}.jpg`;
+  const jpgDestination = path.join(MODEL_DIR, jpgName);
+  if (existsSync(jpgDestination)) return modelAsset(jpgName);
+
+  const pngName = `${dateKey}.png`;
+  const pngDestination = path.join(MODEL_DIR, pngName);
+  if (existsSync(pngDestination)) {
+    if (await optimizeToJpeg(pngDestination, jpgDestination)) return modelAsset(jpgName);
+    return modelAsset(pngName);
+  }
 
   if (process.env.OPENAI_API_KEY && process.env.GENERATE_IMAGES === "true") {
-    const generated = await maybeGenerateImage(dateKey, preset, daily, destination);
-    if (generated) return;
+    const generated = await maybeGenerateImage(dateKey, preset, daily, pngDestination);
+    if (generated) {
+      if (await optimizeToJpeg(pngDestination, jpgDestination)) return modelAsset(jpgName);
+      return modelAsset(pngName);
+    }
   }
 
   const source = path.join(MODEL_DIR, preset.baseImage);
-  await copyFile(source, destination);
+  if (preset.baseImage.endsWith(".jpg") || preset.baseImage.endsWith(".jpeg")) {
+    await copyFile(source, jpgDestination);
+    return modelAsset(jpgName);
+  }
+
+  if (await optimizeToJpeg(source, jpgDestination)) return modelAsset(jpgName);
+  await copyFile(source, pngDestination);
+  return modelAsset(pngName);
+}
+
+function modelAsset(fileName) {
+  return `./assets/daily/models/${fileName}`;
+}
+
+async function optimizeToJpeg(source, destination) {
+  const quality = String(IMAGE_QUALITY);
+  const commands = [
+    ["sips", ["-s", "format", "jpeg", "-s", "formatOptions", quality, source, "--out", destination]],
+    ["magick", [source, "-auto-orient", "-strip", "-quality", quality, destination]],
+    ["convert", [source, "-auto-orient", "-strip", "-quality", quality, destination]],
+  ];
+
+  for (const [command, args] of commands) {
+    try {
+      await runFile(command, args);
+      return true;
+    } catch {
+      // Try the next converter; local macOS has sips, GitHub runners commonly have ImageMagick.
+    }
+  }
+
+  console.warn(`Image optimization unavailable; keeping original image for ${path.basename(source)}.`);
+  return false;
 }
 
 async function maybeGenerateImage(dateKey, preset, daily, destination) {

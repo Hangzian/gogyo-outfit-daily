@@ -157,6 +157,7 @@ const state = {
   currentDate: "",
   currentEntry: null,
   locale: DEFAULT_LOCALE,
+  pendingVisualSrc: "",
   cache: new Map(),
 };
 
@@ -197,6 +198,7 @@ async function init() {
     renderArchive();
     await loadDate(readDateFromUrl() || state.defaultDate, { replaceUrl: true });
     await renderTomorrowTeaser();
+    warmRecentImages();
   } catch (error) {
     renderError(error);
   } finally {
@@ -316,11 +318,7 @@ function renderDaily(entry) {
   els.outfitSummary.textContent = entry.outfitAdvice.summary;
   const visual = entry.visual || {};
   const visualSrc = buildVisualSrc(visual.src || "./assets/five-elements-editorial.png", entry.date, state.locale);
-  if (els.visualImage.currentSrc !== visualSrc && els.visualImage.src !== visualSrc) {
-    els.visualImage.classList.add("is-swapping");
-    els.visualImage.onload = () => els.visualImage.classList.remove("is-swapping");
-    els.visualImage.src = visualSrc;
-  }
+  updateHeroImage(visualSrc);
   els.visualImage.alt = visual.alt || ui.visualFallback;
   els.visualImage.style.objectPosition = visual.position || "center";
   els.visualCaption.textContent = visual.caption || entry.visualCaption || ui.visualCaptionFallback;
@@ -336,6 +334,76 @@ function buildVisualSrc(src, dateKey, locale) {
   url.searchParams.set("date", dateKey);
   url.searchParams.set("lang", locale);
   return url.href;
+}
+
+function updateHeroImage(src) {
+  const currentSrc = els.visualImage.currentSrc || els.visualImage.src;
+  if (currentSrc === src || els.visualImage.src === src || sameImagePath(currentSrc, src)) return;
+
+  state.pendingVisualSrc = src;
+  const nextImage = new Image();
+  nextImage.decoding = "async";
+
+  const applyImage = async () => {
+    if (state.pendingVisualSrc !== src) return;
+    try {
+      if (nextImage.decode) await nextImage.decode();
+    } catch {
+      // Some browsers reject decode for already-loaded images; the load event is enough.
+    }
+    if (state.pendingVisualSrc === src) {
+      els.visualImage.src = src;
+    }
+  };
+
+  nextImage.onload = applyImage;
+  nextImage.onerror = () => {
+    if (state.pendingVisualSrc === src) {
+      els.visualImage.src = src;
+    }
+  };
+  nextImage.src = src;
+
+  if (nextImage.complete && nextImage.naturalWidth > 0) {
+    applyImage();
+  }
+}
+
+function sameImagePath(a, b) {
+  try {
+    const left = new URL(a, window.location.href);
+    const right = new URL(b, window.location.href);
+    return left.origin === right.origin && left.pathname === right.pathname;
+  } catch {
+    return false;
+  }
+}
+
+function warmRecentImages() {
+  const run = () => {
+    const recentDates = [...state.dates].slice(-5);
+    recentDates.forEach(async (dateKey) => {
+      try {
+        const entry = await fetchDaily(dateKey, state.locale);
+        const visual = entry.visual || {};
+        preloadImage(buildVisualSrc(visual.src || "./assets/five-elements-editorial.png", entry.date, state.locale));
+      } catch {
+        // Visible content is already rendered; image warming is just a smoothness boost.
+      }
+    });
+  };
+
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(run, { timeout: 2500 });
+  } else {
+    window.setTimeout(run, 900);
+  }
+}
+
+function preloadImage(src) {
+  const image = new Image();
+  image.decoding = "async";
+  image.src = src;
 }
 
 function renderSwatches(container, colors, mode) {
@@ -433,6 +501,7 @@ function bindActions() {
     renderArchive();
     await loadDate(state.currentDate || state.defaultDate, { replaceUrl: true });
     await renderTomorrowTeaser();
+    warmRecentImages();
   });
 
   els.shareButton.addEventListener("click", () => {

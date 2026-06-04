@@ -4,6 +4,10 @@
 
 Public URL:
 
+https://gogyo-outfit-daily-ja.pages.dev/
+
+GitHub Pages fallback:
+
 https://hangzian.github.io/gogyo-outfit-daily/
 
 ## Run
@@ -28,11 +32,11 @@ Serve the repository root from the `main` branch. The site uses relative asset p
 
 ### Cloudflare Pages
 
-The project is also set up for Cloudflare Pages.
+The primary production host is Cloudflare Pages.
 
 ```bash
 npm run build
-npx wrangler pages deploy dist --project-name gogyo-outfit-daily
+npx wrangler pages deploy dist --project-name gogyo-outfit-daily-ja
 ```
 
 Cloudflare Pages publishes the `dist/` folder. The `daily/` JSON files can be served with `Cache-Control: no-store` so daily updates do not get stuck behind a long CDN cache.

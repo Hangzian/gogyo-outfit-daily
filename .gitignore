@@ -3,4 +3,5 @@ node_modules/
 dist/
 outputs/
 work/
+.wrangler/
 npm-debug.log*

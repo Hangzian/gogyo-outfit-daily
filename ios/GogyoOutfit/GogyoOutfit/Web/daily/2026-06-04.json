@@ -1,0 +1,148 @@
+{
+  "id": "2026-06-04",
+  "date": "2026-06-04",
+  "status": "published",
+  "elementCycle": {
+    "source": "earth",
+    "target": "metal",
+    "relationship": "generating"
+  },
+  "visual": {
+    "src": "./assets/daily/models/2026-06-04.jpg",
+    "position": "center top"
+  },
+  "locales": {
+    "ja": {
+      "locale": "ja-JP",
+      "dateDisplay": "2026.06.04（木）",
+      "theme": {
+        "title": "土が金を生む日",
+        "displayTitle": "土が金を\n生む日",
+        "subtitle": "安定した気配から、きちんとした輝きが生まれる日。黄みのあるニュートラルに、白金や淡いゴールドを重ねると整って見えます。"
+      },
+      "colors": {
+        "recommended": [
+          { "name": "アイボリー", "hex": "#f1ead8" },
+          { "name": "淡金", "hex": "#c5a768" },
+          { "name": "石のグレー", "hex": "#a7a39a" }
+        ],
+        "avoid": [
+          { "name": "濃い緑", "hex": "#314d39" },
+          { "name": "強い赤", "hex": "#bc2f25" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "今日は、色数を増やさず素材の質感で奥行きをつくると上品です。アイボリーのシャツ、石のグレーのボトム、淡金のアクセサリーを合わせると、静かな信頼感が生まれます。濃い緑や強い赤は主役にせず、小さく留めるのがよさそうです。"
+      },
+      "scenes": [
+        { "label": "通勤", "text": "アイボリーのトップスにグレーのパンツ。淡金の時計で輪郭を整えて。" },
+        { "label": "デート", "text": "白っぽいワントーンに、金の小物を一点だけ。清潔感が残ります。" },
+        { "label": "商談", "text": "石のグレーを軸に、黄みのベージュを重ねると落ち着いた説得力へ。" },
+        { "label": "旅行", "text": "軽い生成りの羽織りとグレーのスニーカーで、動きやすく端正に。" },
+        { "label": "撮影", "text": "白壁や木の背景では、淡金のアクセサリーがさりげなく映えます。" }
+      ],
+      "dailyNote": "今日は、きらめきを足すより、服の輪郭を静かに磨く。",
+      "visualCaption": "土の安定から、金の澄んだ輪郭へ。",
+      "visualAlt": "アイボリー、石のグレー、淡金を取り入れた男女モデルの土生金の日の装い"
+    },
+    "zh": {
+      "locale": "zh-CN",
+      "dateDisplay": "2026.06.04（周四）",
+      "theme": {
+        "title": "土生金的一天",
+        "displayTitle": "土生金\n的一天",
+        "subtitle": "从稳定气场里生出清晰光泽的一天。带黄调的中性色叠加白金、浅金，会显得更有秩序。"
+      },
+      "colors": {
+        "recommended": [
+          { "name": "象牙白", "hex": "#f1ead8" },
+          { "name": "浅金", "hex": "#c5a768" },
+          { "name": "石灰色", "hex": "#a7a39a" }
+        ],
+        "avoid": [
+          { "name": "深绿", "hex": "#314d39" },
+          { "name": "强红", "hex": "#bc2f25" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "今天适合少用颜色，多用材质质感做层次。象牙白衬衫、石灰色下装、浅金配饰，会带来安静可信的轮廓。深绿和强红不适合做主角，小面积即可。"
+      },
+      "scenes": [
+        { "label": "通勤", "text": "象牙白上衣配灰色裤装，用浅金腕表收住轮廓。" },
+        { "label": "约会", "text": "偏白的同色系里只放一点金色小物，干净又不冷。" },
+        { "label": "商谈", "text": "以石灰色为主轴，叠加暖米色，会更稳妥有说服力。" },
+        { "label": "旅行", "text": "本白薄外套和灰色鞋款，行动方便也显得端正。" },
+        { "label": "拍照", "text": "白墙或木质背景下，浅金配饰会很自然地出片。" }
+      ],
+      "dailyNote": "今天，不必增加闪耀感，把衣服的轮廓磨清楚就好。",
+      "visualCaption": "从土的稳定，走向金的清晰。",
+      "visualAlt": "男女模特穿着象牙白、石灰色和浅金的土生金穿搭"
+    },
+    "en": {
+      "locale": "en",
+      "dateDisplay": "2026.06.04 (Thu)",
+      "theme": {
+        "title": "Earth Creates Metal",
+        "displayTitle": "Earth Creates\nMetal",
+        "subtitle": "A day when steadiness turns into clean shine. Yellow-based neutrals, pale gold, and stone grey make the outfit feel composed."
+      },
+      "colors": {
+        "recommended": [
+          { "name": "Ivory", "hex": "#f1ead8" },
+          { "name": "Pale gold", "hex": "#c5a768" },
+          { "name": "Stone grey", "hex": "#a7a39a" }
+        ],
+        "avoid": [
+          { "name": "Deep green", "hex": "#314d39" },
+          { "name": "Strong red", "hex": "#bc2f25" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "Keep the palette quiet and let texture do the work. An ivory shirt, stone-grey bottoms, and pale-gold accessories create a calm, trustworthy outline."
+      },
+      "scenes": [
+        { "label": "Commute", "text": "Ivory on top with grey trousers; a pale-gold watch sharpens the look." },
+        { "label": "Date", "text": "Try an off-white tone-on-tone outfit with one gold accent." },
+        { "label": "Meeting", "text": "Stone grey with warm beige gives steady persuasion." },
+        { "label": "Travel", "text": "A natural-ivory layer and grey sneakers feel mobile but polished." },
+        { "label": "Photos", "text": "Pale-gold accessories glow softly against white walls or wood." }
+      ],
+      "dailyNote": "Polish the outline of your clothes rather than adding more shine.",
+      "visualCaption": "From earth's steadiness to metal's clear edge.",
+      "visualAlt": "Male and female models wearing ivory, stone grey, and pale gold for an Earth creates Metal day"
+    },
+    "ko": {
+      "locale": "ko-KR",
+      "dateDisplay": "2026.06.04（목）",
+      "theme": {
+        "title": "토가 금을 낳는 날",
+        "displayTitle": "토가 금을\n낳는 날",
+        "subtitle": "안정된 기운에서 단정한 빛이 생기는 날입니다. 노란기가 있는 뉴트럴에 백금빛과 연한 골드를 더하면 차분하게 정돈됩니다."
+      },
+      "colors": {
+        "recommended": [
+          { "name": "아이보리", "hex": "#f1ead8" },
+          { "name": "연한 골드", "hex": "#c5a768" },
+          { "name": "스톤 그레이", "hex": "#a7a39a" }
+        ],
+        "avoid": [
+          { "name": "짙은 초록", "hex": "#314d39" },
+          { "name": "강한 빨강", "hex": "#bc2f25" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "오늘은 색 수를 늘리기보다 소재의 질감으로 깊이를 만드는 편이 고급스럽습니다. 아이보리 셔츠, 스톤 그레이 하의, 연한 골드 액세서리를 맞추면 조용한 신뢰감이 생깁니다."
+      },
+      "scenes": [
+        { "label": "출근", "text": "아이보리 상의와 그레이 팬츠, 연한 골드 시계로 라인을 정돈하세요." },
+        { "label": "데이트", "text": "화이트 계열 원톤에 금색 소품을 하나만 더하면 깨끗합니다." },
+        { "label": "미팅", "text": "스톤 그레이를 중심으로 따뜻한 베이지를 더하면 차분한 설득력이 생깁니다." },
+        { "label": "여행", "text": "내추럴 아이보리 아우터와 그레이 스니커즈로 편하고 단정하게." },
+        { "label": "촬영", "text": "흰 벽이나 나무 배경에서는 연한 골드 액세서리가 은은하게 빛납니다." }
+      ],
+      "dailyNote": "오늘은 반짝임을 더하기보다 옷의 윤곽을 조용히 다듬으세요.",
+      "visualCaption": "토의 안정에서 금의 맑은 윤곽으로.",
+      "visualAlt": "아이보리, 스톤 그레이, 연한 골드를 입은 남녀 모델의 토생금 스타일"
+    }
+  }
+}

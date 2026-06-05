@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>五行の装い | 今日のラッキーカラー</title>
+    <meta
+      name="description"
+      content="中国五行の考え方を、毎日の服選びに。今日のラッキーカラー、控えたい色、シーン別の装いを日本語でお届けします。"
+    />
+    <meta property="og:title" content="五行の装い | 今日のラッキーカラー" />
+    <meta
+      property="og:description"
+      content="今日の五行テーマと、通勤・商談・旅行にも使える装いの色案内。"
+    />
+    <meta
+      property="og:image"
+      content="https://gogyo-outfit-daily-ja.pages.dev/assets/daily/models/2026-06-05.jpg"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="preload" as="image" href="./assets/daily/models/2026-06-05.jpg" fetchpriority="high" />
+    <link rel="stylesheet" href="./styles.css?v=20260604-6" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="サイトヘッダー">
+      <a class="brand" href="./" aria-label="五行の装い ホーム">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">五行の装い</span>
+      </a>
+      <nav class="top-nav" aria-label="日付ナビゲーション">
+        <button class="nav-link" data-i18n="navToday" data-jump="today" type="button">今日</button>
+        <button class="nav-link" data-i18n="navTomorrow" data-jump="tomorrow" type="button">明日</button>
+        <a class="nav-link" data-i18n="navArchive" href="#archive">過去</a>
+        <label class="language-field" for="languageSelect">
+          <span class="sr-only">Language</span>
+          <select id="languageSelect" aria-label="Language">
+            <option value="ja">日本語</option>
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ko">한국어</option>
+          </select>
+        </label>
+      </nav>
+    </header>
+
+    <main>
+      <section class="daily-hero" aria-labelledby="daily-title">
+        <div class="hero-copy">
+          <p class="kicker" data-i18n="kicker">毎朝更新 · 五行穿衣</p>
+          <p class="date-line" id="dateLine" data-i18n="loading">読み込み中</p>
+          <h1 id="daily-title" data-i18n="defaultTitle">今日の装いを整える</h1>
+          <p class="theme-subtitle" id="themeSubtitle"></p>
+
+          <div class="color-rail" id="luckyColorRail" aria-label="今日のおすすめ色"></div>
+
+          <div class="hero-actions">
+            <button class="primary-action" data-i18n="share" id="shareButton" type="button">Xでシェア</button>
+            <button class="quiet-action" data-i18n="tomorrowButton" data-jump="tomorrow" type="button">明日の予告</button>
+          </div>
+        </div>
+
+        <figure class="hero-visual">
+          <img
+            src="./assets/daily/models/2026-06-05.jpg"
+            alt="若草色、生成り、朱赤の差し色を取り入れた男女モデルの木生火の日の装い"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <figcaption id="visualCaption">木の軽さに、火のあたたかさを少し。</figcaption>
+        </figure>
+      </section>
+
+      <section class="content-band main-read" aria-label="今日の詳しい案内">
+        <div class="summary-block">
+          <div class="section-label" data-i18n="toneLabel">Today's Tone</div>
+          <p id="dailyNote" class="daily-note"></p>
+        </div>
+
+        <div class="guidance-grid">
+          <article class="guidance-panel">
+            <div class="section-label" data-i18n="luckyLabel">Lucky Colors</div>
+            <h2 data-i18n="luckyTitle">取り入れたい色</h2>
+            <div class="chip-list" id="luckyColors"></div>
+          </article>
+
+          <article class="guidance-panel caution">
+            <div class="section-label" data-i18n="avoidLabel">Careful Colors</div>
+            <h2 data-i18n="avoidTitle">控えめにしたい色</h2>
+            <div class="chip-list" id="avoidColors"></div>
+          </article>
+        </div>
+
+        <section class="advice-section" aria-labelledby="adviceTitle">
+          <div>
+            <div class="section-label" data-i18n="stylingLabel">Styling</div>
+            <h2 id="adviceTitle" data-i18n="stylingTitle">装いのすすめ</h2>
+          </div>
+          <p id="outfitSummary" class="body-copy"></p>
+        </section>
+
+        <section class="scene-section" aria-labelledby="sceneTitle">
+          <div>
+            <div class="section-label" data-i18n="scenesLabel">Scenes</div>
+            <h2 id="sceneTitle" data-i18n="scenesTitle">シーン別の整え方</h2>
+          </div>
+          <div class="scene-grid" id="sceneGrid"></div>
+        </section>
+      </section>
+
+      <section class="content-band preview-band" aria-labelledby="previewTitle">
+        <div class="preview-copy">
+          <div class="section-label" data-i18n="tomorrowLabel">Tomorrow</div>
+          <h2 id="previewTitle" data-i18n="tomorrowTitle">明日の予告</h2>
+          <p id="tomorrowText"></p>
+        </div>
+        <button class="quiet-action dark" data-i18n="details" data-jump="tomorrow" type="button">詳しく見る</button>
+      </section>
+
+      <section class="content-band archive-band" id="archive" aria-labelledby="archiveTitle">
+        <div>
+          <div class="section-label" data-i18n="archiveLabel">Archive</div>
+          <h2 id="archiveTitle" data-i18n="archiveTitle">過去の日更</h2>
+        </div>
+        <div class="archive-list" id="archiveList"></div>
+      </section>
+
+      <section class="follow-strip" aria-label="更新案内">
+        <p data-i18n="followText">日々の装いに、少しだけ余白と流れを。</p>
+        <a data-i18n="followLink" href="https://x.com/" target="_blank" rel="noreferrer">Xで更新を追う</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p data-i18n="footer">五行の装い · Japanese daily prototype</p>
+    </footer>
+
+    <script src="./app.js?v=20260605-1" type="module"></script>
+  </body>
+</html>

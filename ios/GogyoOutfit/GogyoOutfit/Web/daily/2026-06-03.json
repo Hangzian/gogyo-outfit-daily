@@ -1,0 +1,148 @@
+{
+  "id": "2026-06-03",
+  "date": "2026-06-03",
+  "status": "published",
+  "elementCycle": {
+    "source": "fire",
+    "target": "earth",
+    "relationship": "generating"
+  },
+  "visual": {
+    "src": "./assets/daily/models/2026-06-03.jpg",
+    "position": "center top"
+  },
+  "locales": {
+    "ja": {
+      "locale": "ja-JP",
+      "dateDisplay": "2026.06.03（水）",
+      "theme": {
+        "title": "火が土を温める日",
+        "displayTitle": "火が土を\n温める日",
+        "subtitle": "華やかさを、落ち着きのある土台へ変える日。赤みのある色は、ベージュや砂色と合わせると暮らしになじみます。"
+      },
+      "colors": {
+        "recommended": [
+          { "name": "砂色", "hex": "#cdbb96" },
+          { "name": "煉瓦色", "hex": "#914332" },
+          { "name": "淡金", "hex": "#c9a86a" }
+        ],
+        "avoid": [
+          { "name": "冷たい青", "hex": "#486f8f" },
+          { "name": "強い白", "hex": "#ffffff" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "土の色をベースに、煉瓦色や淡い金を少量重ねると、落ち着きと存在感が両立します。強い白よりも、少し黄みを含んだアイボリーが今日の空気に合います。"
+      },
+      "scenes": [
+        { "label": "通勤", "text": "砂色のセットアップに、淡金の時計や小物で品よくまとめて。" },
+        { "label": "デート", "text": "煉瓦色のトップスは、顔まわりを温かく見せてくれます。" },
+        { "label": "商談", "text": "ベージュと墨色の配分で、柔らかさと信頼感を整えます。" },
+        { "label": "旅行", "text": "砂色の軽い羽織りは、写真にも街にもなじみます。" },
+        { "label": "撮影", "text": "淡金のアクセサリーを自然光に置くと、肌の印象がやわらぎます。" }
+      ],
+      "dailyNote": "目立つ色も、土台が穏やかなら生活の中で美しく見える。",
+      "visualCaption": "火の気配を、土の静けさで受け止める。",
+      "visualAlt": "砂色、煉瓦色、淡金を取り入れた男女モデルの火生土の日の装い"
+    },
+    "zh": {
+      "locale": "zh-CN",
+      "dateDisplay": "2026.06.03（周三）",
+      "theme": {
+        "title": "火暖土的一天",
+        "displayTitle": "火暖土\n的一天",
+        "subtitle": "把明亮感落到稳定底盘上的一天。红调颜色和米色、砂色搭配，会更像现代生活方式，而不是刻意张扬。"
+      },
+      "colors": {
+        "recommended": [
+          { "name": "砂色", "hex": "#cdbb96" },
+          { "name": "砖红", "hex": "#914332" },
+          { "name": "浅金", "hex": "#c9a86a" }
+        ],
+        "avoid": [
+          { "name": "冷蓝", "hex": "#486f8f" },
+          { "name": "强白", "hex": "#ffffff" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "用土色做基底，再少量叠加砖红和浅金，会同时有沉稳和存在感。比起高亮白，今天更适合带一点暖调的象牙白。"
+      },
+      "scenes": [
+        { "label": "通勤", "text": "砂色套装配浅金腕表或小物，干净又有分寸。" },
+        { "label": "约会", "text": "砖红上衣能让面部气色更温暖。" },
+        { "label": "商谈", "text": "米色和墨色控制好比例，会显得柔和且可靠。" },
+        { "label": "旅行", "text": "一件砂色薄外套，既适合照片也适合城市行走。" },
+        { "label": "拍照", "text": "浅金配饰放在自然光里，肤色会更柔和。" }
+      ],
+      "dailyNote": "醒目的颜色，只要底盘安静，也能在生活里很好看。",
+      "visualCaption": "用土的安静，接住火的气息。",
+      "visualAlt": "男女模特穿着砂色、砖红和浅金的火生土穿搭"
+    },
+    "en": {
+      "locale": "en",
+      "dateDisplay": "2026.06.03 (Wed)",
+      "theme": {
+        "title": "Fire Warms Earth",
+        "displayTitle": "Fire Warms\nEarth",
+        "subtitle": "A day to translate brightness into grounded calm. Red-based tones feel more livable when paired with beige, sand, and soft gold."
+      },
+      "colors": {
+        "recommended": [
+          { "name": "Sand beige", "hex": "#cdbb96" },
+          { "name": "Brick red", "hex": "#914332" },
+          { "name": "Soft gold", "hex": "#c9a86a" }
+        ],
+        "avoid": [
+          { "name": "Cold blue", "hex": "#486f8f" },
+          { "name": "Stark white", "hex": "#ffffff" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "Start with earth tones, then add brick red or soft gold in small doses. Warm ivory works better today than a sharp, clinical white."
+      },
+      "scenes": [
+        { "label": "Commute", "text": "A sand-toned set with a soft-gold watch feels composed." },
+        { "label": "Date", "text": "A brick-red top brings gentle warmth around the face." },
+        { "label": "Meeting", "text": "Balance beige with ink black for a soft, trustworthy tone." },
+        { "label": "Travel", "text": "A light sand jacket blends well with both photos and city streets." },
+        { "label": "Photos", "text": "Soft-gold accessories in daylight make the skin look calmer." }
+      ],
+      "dailyNote": "A vivid color feels refined when the base stays quiet.",
+      "visualCaption": "Let earth hold the warmth of fire.",
+      "visualAlt": "Male and female models wearing sand beige, brick red, and soft gold for a Fire warms Earth day"
+    },
+    "ko": {
+      "locale": "ko-KR",
+      "dateDisplay": "2026.06.03（수）",
+      "theme": {
+        "title": "화가 토를 데우는 날",
+        "displayTitle": "화가 토를\n데우는 날",
+        "subtitle": "화려함을 차분한 기반으로 바꾸는 날입니다. 붉은 기운의 색은 베이지와 모래빛에 더하면 일상 속에 자연스럽게 스며듭니다."
+      },
+      "colors": {
+        "recommended": [
+          { "name": "모래빛", "hex": "#cdbb96" },
+          { "name": "벽돌 레드", "hex": "#914332" },
+          { "name": "연한 골드", "hex": "#c9a86a" }
+        ],
+        "avoid": [
+          { "name": "차가운 블루", "hex": "#486f8f" },
+          { "name": "강한 화이트", "hex": "#ffffff" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "토의 색을 바탕으로 벽돌빛과 연한 골드를 조금만 더하면 차분함과 존재감이 함께 살아납니다. 선명한 흰색보다 노란기가 살짝 도는 아이보리가 오늘의 공기에 맞습니다."
+      },
+      "scenes": [
+        { "label": "출근", "text": "모래빛 셋업에 연한 골드 시계나 소품으로 단정하게 마무리하세요." },
+        { "label": "데이트", "text": "벽돌빛 상의는 얼굴 주변을 따뜻하게 보여 줍니다." },
+        { "label": "미팅", "text": "베이지와 먹색의 비율을 맞추면 부드럽고 신뢰감 있습니다." },
+        { "label": "여행", "text": "가벼운 모래빛 아우터는 사진과 거리 모두에 잘 어울립니다." },
+        { "label": "촬영", "text": "연한 골드 액세서리를 자연광에 두면 피부 인상이 부드러워집니다." }
+      ],
+      "dailyNote": "눈에 띄는 색도 바탕이 차분하면 생활 속에서 아름답게 보입니다.",
+      "visualCaption": "화의 기운을 토의 고요함으로 받아들이기.",
+      "visualAlt": "모래빛, 벽돌 레드, 연한 골드를 입은 남녀 모델의 화생토 스타일"
+    }
+  }
+}

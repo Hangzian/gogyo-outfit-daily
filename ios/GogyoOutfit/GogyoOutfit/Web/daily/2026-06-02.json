@@ -1,0 +1,148 @@
+{
+  "id": "2026-06-02",
+  "date": "2026-06-02",
+  "status": "published",
+  "elementCycle": {
+    "source": "wood",
+    "target": "fire",
+    "relationship": "generating"
+  },
+  "visual": {
+    "src": "./assets/daily/models/2026-06-02.jpg",
+    "position": "center top"
+  },
+  "locales": {
+    "ja": {
+      "locale": "ja-JP",
+      "dateDisplay": "2026.06.02（火）",
+      "theme": {
+        "title": "木が火を育てる日",
+        "displayTitle": "木が火を\n育てる日",
+        "subtitle": "伸びる力を、明るい印象へつなげる日。やわらかな緑と赤みを少しだけ足すと、表情が自然に開きます。"
+      },
+      "colors": {
+        "recommended": [
+          { "name": "若草色", "hex": "#9caf88" },
+          { "name": "朱赤", "hex": "#a73a2d" },
+          { "name": "生成り", "hex": "#eee6d2" }
+        ],
+        "avoid": [
+          { "name": "重い黒", "hex": "#1b1b1b" },
+          { "name": "濁った紫", "hex": "#5d5364" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "今日は、明るさを大きく見せるよりも、清潔感の中に小さな熱を置くのが上品です。若草色のシャツ、生成りのパンツ、朱赤の小物など、視線の動く一点だけに火の色を添えて。"
+      },
+      "scenes": [
+        { "label": "通勤", "text": "若草色のニットやシャツを、白や生成りで軽く受け止めて。" },
+        { "label": "デート", "text": "朱赤はリップやバッグなど、小さな面積で印象を残すと自然です。" },
+        { "label": "商談", "text": "ベージュのジャケットに緑の差し色で、柔らかく前向きな空気へ。" },
+        { "label": "旅行", "text": "リネン素材と草木の色を合わせると、移動中も軽やかに見えます。" },
+        { "label": "撮影", "text": "緑の背景には生成り、街では朱赤の一点使いが写真映えします。" }
+      ],
+      "dailyNote": "今日は、頑張りを見せるより、気持ちよく伸びていく服を選ぶ。",
+      "visualCaption": "木の軽さに、火のあたたかさを少し。",
+      "visualAlt": "若草色、生成り、朱赤の差し色を取り入れた男女モデルの木生火の日の装い"
+    },
+    "zh": {
+      "locale": "zh-CN",
+      "dateDisplay": "2026.06.02（周二）",
+      "theme": {
+        "title": "木生火的一天",
+        "displayTitle": "木生火\n的一天",
+        "subtitle": "把生长感转成明亮气色的一天。柔和的绿色配一点朱红，会让整个人看起来更舒展。"
+      },
+      "colors": {
+        "recommended": [
+          { "name": "嫩草绿", "hex": "#9caf88" },
+          { "name": "朱红", "hex": "#a73a2d" },
+          { "name": "本白", "hex": "#eee6d2" }
+        ],
+        "avoid": [
+          { "name": "厚重黑", "hex": "#1b1b1b" },
+          { "name": "浊紫", "hex": "#5d5364" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "今天不必把亮色穿得很满，干净底色里放一点热度就很高级。嫩草绿衬衫、本白裤装、朱红小包或耳饰，都适合做视线里的小亮点。"
+      },
+      "scenes": [
+        { "label": "通勤", "text": "嫩草绿针织或衬衫，用白色和本白色轻轻托住。" },
+        { "label": "约会", "text": "朱红适合放在唇色、包袋或耳饰上，小面积更自然。" },
+        { "label": "商谈", "text": "米色外套配绿色点缀，气质柔和又有推进感。" },
+        { "label": "旅行", "text": "亚麻材质和草木色很合拍，移动中也显得轻松。" },
+        { "label": "拍照", "text": "自然背景配本白，城市街景里加一点朱红更上镜。" }
+      ],
+      "dailyNote": "今天，别急着证明自己，穿得舒展一点就好。",
+      "visualCaption": "木的轻盈里，放一点火的温度。",
+      "visualAlt": "男女模特穿着嫩草绿、本白和朱红点缀的木生火穿搭"
+    },
+    "en": {
+      "locale": "en",
+      "dateDisplay": "2026.06.02 (Tue)",
+      "theme": {
+        "title": "Wood Feeds Fire",
+        "displayTitle": "Wood Feeds\nFire",
+        "subtitle": "A day to turn growth into brightness. Soft green with a small cinnabar accent keeps the look fresh and alive."
+      },
+      "colors": {
+        "recommended": [
+          { "name": "Young sage", "hex": "#9caf88" },
+          { "name": "Cinnabar", "hex": "#a73a2d" },
+          { "name": "Natural ivory", "hex": "#eee6d2" }
+        ],
+        "avoid": [
+          { "name": "Heavy black", "hex": "#1b1b1b" },
+          { "name": "Muddied purple", "hex": "#5d5364" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "Keep the brightness contained and elegant. Try a young-sage shirt, natural ivory trousers, and one cinnabar accessory where the eye naturally lands."
+      },
+      "scenes": [
+        { "label": "Commute", "text": "A sage knit or shirt looks clean when grounded with ivory." },
+        { "label": "Date", "text": "Use cinnabar as a small accent in a bag, lip color, or jewelry." },
+        { "label": "Meeting", "text": "A beige jacket with a green accent feels soft but forward-moving." },
+        { "label": "Travel", "text": "Linen and botanical tones keep the look light in motion." },
+        { "label": "Photos", "text": "Ivory works well with greenery; cinnabar pops in the city." }
+      ],
+      "dailyNote": "Choose clothes that let you grow into the day, not force your way through it.",
+      "visualCaption": "A touch of fire inside the ease of wood.",
+      "visualAlt": "Male and female models wearing young sage, natural ivory, and cinnabar accents for a Wood feeds Fire day"
+    },
+    "ko": {
+      "locale": "ko-KR",
+      "dateDisplay": "2026.06.02（화）",
+      "theme": {
+        "title": "목이 화를 키우는 날",
+        "displayTitle": "목이 화를\n키우는 날",
+        "subtitle": "자라나는 기운을 밝은 인상으로 연결하는 날입니다. 부드러운 초록에 주홍을 조금 더하면 얼굴빛이 자연스럽게 살아납니다."
+      },
+      "colors": {
+        "recommended": [
+          { "name": "연한 풀빛", "hex": "#9caf88" },
+          { "name": "주홍", "hex": "#a73a2d" },
+          { "name": "내추럴 아이보리", "hex": "#eee6d2" }
+        ],
+        "avoid": [
+          { "name": "무거운 검정", "hex": "#1b1b1b" },
+          { "name": "탁한 보라", "hex": "#5d5364" }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "오늘은 밝음을 크게 드러내기보다 깨끗한 바탕에 작은 온기를 두는 편이 세련됩니다. 연한 풀빛 셔츠, 아이보리 하의, 주홍 소품처럼 시선이 머무는 곳에만 포인트를 주세요."
+      },
+      "scenes": [
+        { "label": "출근", "text": "연한 풀빛 니트나 셔츠를 아이보리로 가볍게 받쳐 주세요." },
+        { "label": "데이트", "text": "주홍은 립, 가방, 귀걸이처럼 작은 면적으로 쓰면 자연스럽습니다." },
+        { "label": "미팅", "text": "베이지 재킷에 초록 포인트를 더하면 부드럽고 긍정적인 인상입니다." },
+        { "label": "여행", "text": "리넨 소재와 식물색을 맞추면 이동 중에도 산뜻합니다." },
+        { "label": "촬영", "text": "초록 배경에는 아이보리, 도심에서는 주홍 포인트가 잘 어울립니다." }
+      ],
+      "dailyNote": "오늘은 애쓰는 모습을 보이기보다 편안하게 자라는 옷을 고르세요.",
+      "visualCaption": "목의 가벼움에 화의 온기를 조금.",
+      "visualAlt": "연한 풀빛, 아이보리, 주홍 포인트를 입은 남녀 모델의 목생화 스타일"
+    }
+  }
+}

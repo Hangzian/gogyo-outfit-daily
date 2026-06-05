@@ -1,0 +1,116 @@
+name: iOS Simulator Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - codex/ios-gogyo-outfit-build
+    paths:
+      - "ios/GogyoOutfit/**"
+      - "app.js"
+      - "index.html"
+      - "styles.css"
+      - "assets/**"
+      - "daily/**"
+      - ".github/workflows/ios-simulator-build.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build-run-screenshot:
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: |
+          xcodebuild -version
+          xcrun simctl list runtimes available
+
+      - name: Choose simulator
+        run: |
+          DEVICE_ID="$(xcrun simctl list devices available -j | /usr/bin/python3 -c 'import json, sys
+          data = json.load(sys.stdin)
+          for runtime, devices in sorted(data.get("devices", {}).items(), reverse=True):
+              for device in devices:
+                  name = device.get("name", "")
+                  if device.get("isAvailable") and name.startswith("iPhone"):
+                      print(device["udid"])
+                      raise SystemExit
+          raise SystemExit(1)')"
+          if [ -z "$DEVICE_ID" ]; then
+            echo "::error::No available iPhone simulator found."
+            exit 1
+          fi
+          echo "DEVICE_ID=$DEVICE_ID" >> "$GITHUB_ENV"
+          xcrun simctl list devices available | grep "$DEVICE_ID" || true
+
+      - name: Build for iOS Simulator
+        run: |
+          xcodebuild \
+            -project ios/GogyoOutfit/GogyoOutfit.xcodeproj \
+            -scheme GogyoOutfit \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Build app for launch
+        run: |
+          DERIVED_DATA="$RUNNER_TEMP/GogyoOutfitDerivedData"
+          xcodebuild \
+            -project ios/GogyoOutfit/GogyoOutfit.xcodeproj \
+            -scheme GogyoOutfit \
+            -configuration Debug \
+            -destination "id=$DEVICE_ID" \
+            -derivedDataPath "$DERIVED_DATA" \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+          APP_PATH="$(find "$DERIVED_DATA/Build/Products/Debug-iphonesimulator" -name 'GogyoOutfit.app' -maxdepth 2 -print -quit)"
+          if [ -z "$APP_PATH" ]; then
+            echo "::error::Built app bundle was not found."
+            exit 1
+          fi
+          echo "APP_PATH=$APP_PATH" >> "$GITHUB_ENV"
+
+      - name: Boot simulator and launch app
+        run: |
+          xcrun simctl boot "$DEVICE_ID" || true
+          xcrun simctl bootstatus "$DEVICE_ID" -b
+          xcrun simctl install "$DEVICE_ID" "$APP_PATH"
+          xcrun simctl launch "$DEVICE_ID" com.gogyo.outfitdaily
+          sleep 8
+          mkdir -p "$RUNNER_TEMP/screenshots"
+          xcrun simctl io "$DEVICE_ID" screenshot "$RUNNER_TEMP/screenshots/gogyo-home.png"
+          echo "SCREENSHOT_PATH=$RUNNER_TEMP/screenshots/gogyo-home.png" >> "$GITHUB_ENV"
+
+      - name: Install screenshot inspector
+        run: python3 -m pip install --user pillow
+
+      - name: Inspect screenshot pixels
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageStat
+          import os
+
+          path = Path(os.environ["SCREENSHOT_PATH"])
+          image = Image.open(path).convert("RGB")
+          stat = ImageStat.Stat(image)
+          extrema = image.getextrema()
+          print("screenshot", image.size, "mean", stat.mean, "extrema", extrema)
+          if all(channel[0] == channel[1] for channel in extrema):
+              raise SystemExit("screenshot is a single flat color")
+          if sum(stat.mean) / 3 > 252:
+              raise SystemExit("screenshot is too close to blank white")
+          PY
+
+      - name: Upload simulator screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: gogyo-home-screenshot
+          path: ${{ env.SCREENSHOT_PATH }}

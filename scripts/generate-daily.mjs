@@ -183,27 +183,38 @@ const args = new Map(process.argv.slice(2).map((arg, index, all) => {
 }));
 
 const targetDate = args.get("date") || todayInTokyo();
-const preset = PRESETS[dayIndex(targetDate) % PRESETS.length];
-const daily = await buildDaily(targetDate, preset);
+const previewDate = addDays(targetDate, 1);
 
 await mkdir(DAILY_DIR, { recursive: true });
 await mkdir(MODEL_DIR, { recursive: true });
-daily.visual = daily.visual || {};
-daily.visual.src = await ensureImage(targetDate, preset, daily);
-await writeFile(path.join(DAILY_DIR, `${targetDate}.json`), `${JSON.stringify(daily, null, 2)}\n`);
-await updateIndex(targetDate);
+const daily = await writeDaily(targetDate, "published");
+await writeDaily(previewDate, "preview");
+await updateIndex(targetDate, previewDate);
 await updateHtmlShell(targetDate, daily);
 
-console.log(`Generated daily content for ${targetDate} (${preset.key})`);
+console.log(`Generated daily content for ${targetDate} and preview for ${previewDate}`);
 
-async function buildDaily(dateKey, preset) {
+async function writeDaily(dateKey, status) {
+  const preset = PRESETS[dayIndex(dateKey) % PRESETS.length];
+  const daily = await buildDaily(dateKey, preset, status);
+  daily.visual = daily.visual || {};
+  daily.status = status;
+  daily.visual.src = await ensureImage(dateKey, preset, daily);
+  await writeFile(path.join(DAILY_DIR, `${dateKey}.json`), `${JSON.stringify(daily, null, 2)}\n`);
+  return daily;
+}
+
+async function buildDaily(dateKey, preset, status = "published") {
   const aiDaily = await maybeGenerateWithOpenAI(dateKey, preset);
-  if (aiDaily) return aiDaily;
+  if (aiDaily) {
+    aiDaily.status = status;
+    return aiDaily;
+  }
 
   return {
     id: dateKey,
     date: dateKey,
-    status: "published",
+    status,
     elementCycle: {
       source: preset.source,
       target: preset.target,
@@ -387,14 +398,15 @@ async function maybeGenerateImage(dateKey, preset, daily, destination) {
   return true;
 }
 
-async function updateIndex(dateKey) {
+async function updateIndex(dateKey, previewDate) {
   const index = JSON.parse(await readFile(INDEX_PATH, "utf8"));
   const dates = Array.from(new Set([...(index.dates || []), dateKey])).sort();
   index.defaultLocale = "ja";
   index.locales = LOCALES;
   index.defaultDate = dateKey;
-  index.tomorrowDate = addDays(dateKey, 1);
+  index.tomorrowDate = previewDate;
   index.dates = dates.slice(-60);
+  index.previewDates = dates.includes(previewDate) ? [] : [previewDate];
   await writeFile(INDEX_PATH, `${JSON.stringify(index, null, 2)}\n`);
 }
 

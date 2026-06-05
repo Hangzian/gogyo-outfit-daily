@@ -127,7 +127,7 @@ jobs:
         run: |
           xcrun simctl install "$DEVICE_ID" "$APP_PATH"
           xcrun simctl launch "$DEVICE_ID" com.gogyo.outfitdaily
-          sleep 8
+          sleep 20
 
       - name: Capture simulator screenshot
         run: |

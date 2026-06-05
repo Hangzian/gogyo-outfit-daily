@@ -303,9 +303,9 @@ function normalizeDaily(daily, locale) {
 
 async function fetchJson(path) {
   const url = new URL(path, window.location.href);
-  if (!isLocalFilePage()) {
-    url.searchParams.set("v", String(Date.now()));
-  }
+  if (isLocalFilePage()) return fetchJsonFromLocalFile(url);
+
+  url.searchParams.set("v", String(Date.now()));
 
   try {
     const response = await fetch(url, { cache: "no-store" });
@@ -314,9 +314,6 @@ async function fetchJson(path) {
     }
     return response.json();
   } catch (error) {
-    if (isLocalFilePage()) {
-      return fetchJsonFromLocalFile(url, error);
-    }
     throw error;
   }
 }
@@ -335,9 +332,9 @@ function fetchJsonFromLocalFile(url, originalError) {
         }
         return;
       }
-      reject(originalError);
+      reject(originalError || new Error(`${url.pathname} could not be loaded`));
     };
-    request.onerror = () => reject(originalError);
+    request.onerror = () => reject(originalError || new Error(`${url.pathname} could not be loaded`));
     request.send();
   });
 }

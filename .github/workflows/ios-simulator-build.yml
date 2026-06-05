@@ -28,7 +28,6 @@ jobs:
       - name: Show Xcode version
         run: |
           xcodebuild -version
-          xcodebuild -runFirstLaunch
           xcrun simctl list runtimes available
 
       - name: Create simulator

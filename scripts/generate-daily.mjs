@@ -8,8 +8,10 @@ const ROOT = process.cwd();
 const DAILY_DIR = path.join(ROOT, "daily");
 const MODEL_DIR = path.join(ROOT, "assets", "daily", "models");
 const INDEX_PATH = path.join(DAILY_DIR, "index.json");
+const INDEX_HTML_PATH = path.join(ROOT, "index.html");
 const LOCALES = ["ja", "zh", "en", "ko"];
 const TIME_ZONE = "Asia/Tokyo";
+const SITE_URL = process.env.PUBLIC_SITE_URL || "https://gogyo-outfit-daily-ja.pages.dev";
 const IMAGE_QUALITY = Number(process.env.DAILY_IMAGE_QUALITY || 82);
 const runFile = promisify(execFile);
 
@@ -190,6 +192,7 @@ daily.visual = daily.visual || {};
 daily.visual.src = await ensureImage(targetDate, preset, daily);
 await writeFile(path.join(DAILY_DIR, `${targetDate}.json`), `${JSON.stringify(daily, null, 2)}\n`);
 await updateIndex(targetDate);
+await updateHtmlShell(targetDate, daily);
 
 console.log(`Generated daily content for ${targetDate} (${preset.key})`);
 
@@ -393,6 +396,51 @@ async function updateIndex(dateKey) {
   index.tomorrowDate = addDays(dateKey, 1);
   index.dates = dates.slice(-60);
   await writeFile(INDEX_PATH, `${JSON.stringify(index, null, 2)}\n`);
+}
+
+async function updateHtmlShell(dateKey, daily) {
+  if (!existsSync(INDEX_HTML_PATH)) return;
+
+  const src = daily.visual?.src || `./assets/daily/models/${dateKey}.jpg`;
+  const absoluteSrc = new URL(src.replace(/^\.\//, ""), `${SITE_URL}/`).href;
+  const ja = daily.locales?.ja || {};
+  const alt = ja.visualAlt || `${dateKey} daily Five Elements outfit image`;
+  const caption = ja.visualCaption || "今日の色を、生活の質感に落とし込む。";
+
+  let html = await readFile(INDEX_HTML_PATH, "utf8");
+  html = html.replace(
+    /content="https:\/\/gogyo-outfit-daily-ja\.pages\.dev\/assets\/daily\/models\/[^"]+"/,
+    `content="${escapeHtmlAttribute(absoluteSrc)}"`,
+  );
+  html = html.replace(
+    /<link rel="preload" as="image" href="[^"]+" fetchpriority="high" \/>/,
+    `<link rel="preload" as="image" href="${escapeHtmlAttribute(src)}" fetchpriority="high" />`,
+  );
+  html = html.replace(
+    /(<img\s+[\s\S]*?src=")[^"]+("[\s\S]*?alt=")[^"]+(")/,
+    `$1${escapeHtmlAttribute(src)}$2${escapeHtmlAttribute(alt)}$3`,
+  );
+  html = html.replace(
+    /<figcaption id="visualCaption">[\s\S]*?<\/figcaption>/,
+    `<figcaption id="visualCaption">${escapeHtmlText(caption)}</figcaption>`,
+  );
+
+  await writeFile(INDEX_HTML_PATH, html);
+}
+
+function escapeHtmlAttribute(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function escapeHtmlText(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
 function todayInTokyo() {

@@ -192,7 +192,7 @@ init();
 
 async function init() {
   els.body.classList.add("is-loading");
-  state.locale = chooseLocale(readLocaleFromUrl() || localStorage.getItem("gogyo-locale") || navigator.language);
+  state.locale = chooseLocale(readLocaleFromUrl() || localStorage.getItem("gogyo-locale") || DEFAULT_LOCALE);
   renderStaticUI();
 
   try {

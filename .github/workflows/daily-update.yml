@@ -46,7 +46,7 @@ jobs:
         run: |
           git config user.name "gogyo-bot"
           git config user.email "gogyo-bot@users.noreply.github.com"
-          git add daily assets/daily/models
+          git add index.html daily assets/daily/models
           if git diff --cached --quiet; then
             echo "No daily content changes to commit."
           else
@@ -54,6 +54,12 @@ jobs:
             git push
           fi
 
+      - name: Verify Cloudflare deploy secrets
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::Missing CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID. Content was generated, but Cloudflare Pages cannot be redeployed."
+            exit 1
+          fi
+
       - name: Deploy to Cloudflare Pages
-        if: ${{ env.CLOUDFLARE_API_TOKEN != '' && env.CLOUDFLARE_ACCOUNT_ID != '' }}
         run: npm run deploy:cloudflare

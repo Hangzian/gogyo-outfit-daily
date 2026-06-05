@@ -152,6 +152,7 @@ const UI = {
 
 const state = {
   dates: [],
+  previewDates: [],
   defaultDate: todayKey,
   tomorrowDate: "",
   currentDate: "",
@@ -196,6 +197,7 @@ async function init() {
   try {
     const index = await fetchJson(DATA_INDEX);
     state.dates = index.dates;
+    state.previewDates = index.previewDates || [];
     state.defaultDate = chooseDefaultDate(index);
     state.tomorrowDate = index.tomorrowDate || findOffsetDate(state.defaultDate, 1);
     const requestedDate = readDateFromUrl() || state.defaultDate;
@@ -229,7 +231,7 @@ function chooseDefaultDate(index) {
 }
 
 async function loadDate(dateKey, options = {}) {
-  if (!state.dates.includes(dateKey)) {
+  if (!isKnownDate(dateKey)) {
     dateKey = state.defaultDate;
   }
 
@@ -410,7 +412,7 @@ function warmPriorityImages(dateKey) {
 }
 
 function warmImageDates(dateKeys, priority = "auto") {
-  dateKeys.filter((dateKey) => state.dates.includes(dateKey)).forEach(async (dateKey) => {
+  dateKeys.filter(isKnownDate).forEach(async (dateKey) => {
     preloadExpectedModel(dateKey, priority);
     try {
       const entry = await fetchDaily(dateKey, state.locale);
@@ -479,9 +481,17 @@ function uniqueDates(dates) {
 }
 
 function findNeighborDate(dateKey, offset) {
-  const index = state.dates.indexOf(dateKey);
+  const index = allKnownDates().indexOf(dateKey);
   if (index < 0) return "";
-  return state.dates[index + offset] || "";
+  return allKnownDates()[index + offset] || "";
+}
+
+function isKnownDate(dateKey) {
+  return state.dates.includes(dateKey) || state.previewDates.includes(dateKey);
+}
+
+function allKnownDates() {
+  return uniqueDates([...state.dates, ...state.previewDates]).sort();
 }
 
 function renderSwatches(container, colors, mode) {
@@ -556,7 +566,7 @@ async function renderTomorrowTeaser() {
   const requestId = ++state.teaserRequestId;
   const locale = state.locale;
   const target = state.tomorrowDate;
-  if (!target || !state.dates.includes(target)) {
+  if (!target || !isKnownDate(target)) {
     els.tomorrowText.textContent = ui.tomorrowFallback;
     return;
   }

@@ -125,9 +125,39 @@ jobs:
 
       - name: Install and launch app
         run: |
-          xcrun simctl install "$DEVICE_ID" "$APP_PATH"
-          xcrun simctl launch "$DEVICE_ID" com.gogyo.outfitdaily
-          sleep 20
+          python3 - <<'PY'
+          import os
+          import subprocess
+          import sys
+          import time
+
+          def run(command, timeout):
+              print("+", " ".join(command), flush=True)
+              try:
+                  result = subprocess.run(
+                      command,
+                      check=True,
+                      capture_output=True,
+                      text=True,
+                      timeout=timeout,
+                  )
+              except subprocess.TimeoutExpired as error:
+                  print(f"::error::{command[2]} timed out after {timeout} seconds")
+                  if error.stdout:
+                      print(error.stdout)
+                  if error.stderr:
+                      print(error.stderr, file=sys.stderr)
+                  raise SystemExit(1)
+
+              if result.stdout:
+                  print(result.stdout)
+              if result.stderr:
+                  print(result.stderr, file=sys.stderr)
+
+          run(["xcrun", "simctl", "install", os.environ["DEVICE_ID"], os.environ["APP_PATH"]], 180)
+          run(["xcrun", "simctl", "launch", os.environ["DEVICE_ID"], "com.gogyo.outfitdaily"], 60)
+          time.sleep(20)
+          PY
 
       - name: Capture simulator screenshot
         run: |

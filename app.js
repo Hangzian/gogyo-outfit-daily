@@ -302,6 +302,9 @@ function normalizeDaily(daily, locale) {
 }
 
 async function fetchJson(path) {
+  const embeddedLocalJson = readEmbeddedLocalJson(path);
+  if (embeddedLocalJson) return embeddedLocalJson;
+
   const url = new URL(path, window.location.href);
   if (isLocalFilePage()) return fetchJsonFromLocalFile(url);
 
@@ -337,6 +340,26 @@ function fetchJsonFromLocalFile(url, originalError) {
     request.onerror = () => reject(originalError || new Error(`${url.pathname} could not be loaded`));
     request.send();
   });
+}
+
+function readEmbeddedLocalJson(path) {
+  if (!isLocalFilePage()) return null;
+
+  const embeddedData = window.GOGYO_DAILY_DATA;
+  if (!embeddedData) return null;
+
+  const pathname = new URL(path, window.location.href).pathname;
+  if (pathname.endsWith("/daily/index.json") && embeddedData.index) {
+    return cloneJson(embeddedData.index);
+  }
+
+  const dateMatch = pathname.match(/\/daily\/(\d{4}-\d{2}-\d{2})\.json$/);
+  const entry = dateMatch ? embeddedData.entries?.[dateMatch[1]] : null;
+  return entry ? cloneJson(entry) : null;
+}
+
+function cloneJson(value) {
+  return JSON.parse(JSON.stringify(value));
 }
 
 function isLocalFilePage() {

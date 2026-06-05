@@ -28,25 +28,39 @@ jobs:
       - name: Show Xcode version
         run: |
           xcodebuild -version
+          xcodebuild -runFirstLaunch
           xcrun simctl list runtimes available
 
-      - name: Choose simulator
+      - name: Create simulator
         run: |
-          DEVICE_ID="$(xcrun simctl list devices available -j | /usr/bin/python3 -c 'import json, sys
+          RUNTIME_ID="$(xcrun simctl list runtimes available -j | /usr/bin/python3 -c 'import json, sys
           data = json.load(sys.stdin)
-          for runtime, devices in sorted(data.get("devices", {}).items(), reverse=True):
-              for device in devices:
-                  name = device.get("name", "")
-                  if device.get("isAvailable") and name.startswith("iPhone"):
-                      print(device["udid"])
-                      raise SystemExit
-          raise SystemExit(1)')"
+          runtimes = [
+              runtime for runtime in data.get("runtimes", [])
+              if runtime.get("isAvailable") and runtime.get("platform") == "iOS"
+          ]
+          if not runtimes:
+              raise SystemExit(1)
+          print(sorted(runtimes, key=lambda item: item.get("version", ""))[-1]["identifier"])')"
+          DEVICE_TYPE_ID="$(xcrun simctl list devicetypes -j | /usr/bin/python3 -c 'import json, sys
+          data = json.load(sys.stdin)
+          device_types = [
+              item for item in data.get("devicetypes", [])
+              if item.get("name", "").startswith("iPhone") and item.get("identifier")
+          ]
+          if not device_types:
+              raise SystemExit(1)
+          preferred = [item for item in device_types if "Pro" in item.get("name", "")]
+          print((preferred or device_types)[-1]["identifier"])')"
+          DEVICE_ID="$(xcrun simctl create 'Gogyo CI iPhone' "$DEVICE_TYPE_ID" "$RUNTIME_ID")"
           if [ -z "$DEVICE_ID" ]; then
-            echo "::error::No available iPhone simulator found."
+            echo "::error::Could not create iPhone simulator."
             exit 1
           fi
+          echo "RUNTIME_ID=$RUNTIME_ID"
+          echo "DEVICE_TYPE_ID=$DEVICE_TYPE_ID"
           echo "DEVICE_ID=$DEVICE_ID" >> "$GITHUB_ENV"
-          xcrun simctl list devices available | grep "$DEVICE_ID" || true
+          xcrun simctl list devices "$DEVICE_ID"
 
       - name: Build for iOS Simulator
         run: |
@@ -79,8 +93,19 @@ jobs:
 
       - name: Boot simulator and launch app
         run: |
+          xcrun simctl shutdown all || true
+          open -a Simulator --args -CurrentDeviceUDID "$DEVICE_ID" || true
           xcrun simctl boot "$DEVICE_ID" || true
-          xcrun simctl bootstatus "$DEVICE_ID" -b
+          python3 - <<'PY'
+          import os
+          import subprocess
+
+          subprocess.run(
+              ["xcrun", "simctl", "bootstatus", os.environ["DEVICE_ID"], "-b"],
+              check=True,
+              timeout=240,
+          )
+          PY
           xcrun simctl install "$DEVICE_ID" "$APP_PATH"
           xcrun simctl launch "$DEVICE_ID" com.gogyo.outfitdaily
           sleep 8

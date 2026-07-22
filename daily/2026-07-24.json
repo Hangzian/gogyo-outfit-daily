@@ -1,0 +1,268 @@
+{
+  "id": "2026-07-24",
+  "date": "2026-07-24",
+  "status": "preview",
+  "elementCycle": {
+    "source": "fire",
+    "target": "earth",
+    "relationship": "generating"
+  },
+  "visual": {
+    "src": "./assets/daily/models/2026-07-24.jpg",
+    "position": "center top"
+  },
+  "locales": {
+    "ja": {
+      "locale": "ja-JP",
+      "dateDisplay": "2026.07.24（金）",
+      "theme": {
+        "title": "火が土を温める日",
+        "displayTitle": "火が土を\n温める日",
+        "subtitle": "色数を増やさず、素材と余白で今日の流れを整える日です。"
+      },
+      "colors": {
+        "recommended": [
+          {
+            "name": "砂色",
+            "hex": "#cdbb96"
+          },
+          {
+            "name": "煉瓦色",
+            "hex": "#914332"
+          },
+          {
+            "name": "淡金",
+            "hex": "#c9a86a"
+          }
+        ],
+        "avoid": [
+          {
+            "name": "冷たい青",
+            "hex": "#486f8f"
+          },
+          {
+            "name": "強い白",
+            "hex": "#ffffff"
+          }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "おすすめ色を一つ主役にして、残りは淡いニュートラルで受け止めると上品です。小物は一点だけ光らせて。"
+      },
+      "scenes": [
+        {
+          "label": "通勤",
+          "text": "清潔感のある主役色を一つだけ。"
+        },
+        {
+          "label": "デート",
+          "text": "顔まわりにやわらかな色を置いて。"
+        },
+        {
+          "label": "商談",
+          "text": "落ち着いた中性色で信頼感を整えて。"
+        },
+        {
+          "label": "旅行",
+          "text": "動きやすい素材で軽やかに。"
+        },
+        {
+          "label": "撮影",
+          "text": "背景に合わせて小物を一点だけ効かせて。"
+        }
+      ],
+      "dailyNote": "今日は、服の輪郭を静かに整える。",
+      "visualCaption": "火の気配を、土の静けさで受け止める。",
+      "visualAlt": "火が土を温める日の男女モデルの装い"
+    },
+    "zh": {
+      "locale": "zh-CN",
+      "dateDisplay": "2026.07.24（周五）",
+      "theme": {
+        "title": "火暖土的一天",
+        "displayTitle": "火暖土\n的一天",
+        "subtitle": "少一点颜色堆叠，多一点材质和留白，今天的穿搭会更顺。"
+      },
+      "colors": {
+        "recommended": [
+          {
+            "name": "砂色",
+            "hex": "#cdbb96"
+          },
+          {
+            "name": "砖红",
+            "hex": "#914332"
+          },
+          {
+            "name": "浅金",
+            "hex": "#c9a86a"
+          }
+        ],
+        "avoid": [
+          {
+            "name": "冷蓝",
+            "hex": "#486f8f"
+          },
+          {
+            "name": "强白",
+            "hex": "#ffffff"
+          }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "选一个推荐色做主角，其余用柔和中性色承接。配饰只留一个亮点，会更高级。"
+      },
+      "scenes": [
+        {
+          "label": "通勤",
+          "text": "只保留一个干净的主色。"
+        },
+        {
+          "label": "约会",
+          "text": "把柔和色放在脸周，更容易亲近。"
+        },
+        {
+          "label": "商谈",
+          "text": "用中性色整理出可信赖的气场。"
+        },
+        {
+          "label": "旅行",
+          "text": "选择好行动的材质，保持轻盈。"
+        },
+        {
+          "label": "拍照",
+          "text": "根据背景只留一个配饰亮点。"
+        }
+      ],
+      "dailyNote": "今天，把衣服轮廓整理清楚就很好。",
+      "visualCaption": "用土的安静，接住火的气息。",
+      "visualAlt": "火暖土的一天的男女模特穿搭"
+    },
+    "en": {
+      "locale": "en",
+      "dateDisplay": "2026.07.24（Fri）",
+      "theme": {
+        "title": "Fire Warms Earth",
+        "displayTitle": "Fire Warms\nEarth",
+        "subtitle": "A day to use texture and space rather than too many colors."
+      },
+      "colors": {
+        "recommended": [
+          {
+            "name": "Sand beige",
+            "hex": "#cdbb96"
+          },
+          {
+            "name": "Brick red",
+            "hex": "#914332"
+          },
+          {
+            "name": "Soft gold",
+            "hex": "#c9a86a"
+          }
+        ],
+        "avoid": [
+          {
+            "name": "Cold blue",
+            "hex": "#486f8f"
+          },
+          {
+            "name": "Stark white",
+            "hex": "#ffffff"
+          }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "Choose one recommended color as the focus and support it with soft neutrals. Keep the accessory highlight to a single point."
+      },
+      "scenes": [
+        {
+          "label": "Commute",
+          "text": "Keep one clean color in focus."
+        },
+        {
+          "label": "Date",
+          "text": "Place the softer tone near the face."
+        },
+        {
+          "label": "Meeting",
+          "text": "Use grounded neutrals for quiet trust."
+        },
+        {
+          "label": "Travel",
+          "text": "Choose easy-moving fabric for travel."
+        },
+        {
+          "label": "Photos",
+          "text": "Let one accessory respond to the background."
+        }
+      ],
+      "dailyNote": "Let the outline of your clothes do the quiet work.",
+      "visualCaption": "Let earth hold the warmth of fire.",
+      "visualAlt": "Male and female models styled for Fire Warms Earth"
+    },
+    "ko": {
+      "locale": "ko-KR",
+      "dateDisplay": "2026.07.24（금）",
+      "theme": {
+        "title": "화가 토를 데우는 날",
+        "displayTitle": "화가 토를\n데우는 날",
+        "subtitle": "색을 많이 쓰기보다 소재와 여백으로 오늘의 흐름을 정리하는 날입니다."
+      },
+      "colors": {
+        "recommended": [
+          {
+            "name": "모래빛",
+            "hex": "#cdbb96"
+          },
+          {
+            "name": "벽돌 레드",
+            "hex": "#914332"
+          },
+          {
+            "name": "연한 골드",
+            "hex": "#c9a86a"
+          }
+        ],
+        "avoid": [
+          {
+            "name": "차가운 블루",
+            "hex": "#486f8f"
+          },
+          {
+            "name": "강한 화이트",
+            "hex": "#ffffff"
+          }
+        ]
+      },
+      "outfitAdvice": {
+        "summary": "추천 색 하나를 중심에 두고 나머지는 부드러운 뉴트럴로 받쳐 주세요. 액세서리 포인트는 하나면 충분합니다."
+      },
+      "scenes": [
+        {
+          "label": "출근",
+          "text": "깨끗한 중심색 하나만 남기세요."
+        },
+        {
+          "label": "데이트",
+          "text": "얼굴 가까이에 부드러운 색을 두세요."
+        },
+        {
+          "label": "미팅",
+          "text": "차분한 뉴트럴로 신뢰감을 정돈하세요."
+        },
+        {
+          "label": "여행",
+          "text": "움직이기 편한 소재로 가볍게."
+        },
+        {
+          "label": "촬영",
+          "text": "배경에 맞춰 소품 하나만 살리세요."
+        }
+      ],
+      "dailyNote": "오늘은 옷의 윤곽을 조용히 정돈하세요.",
+      "visualCaption": "화의 기운을 토의 고요함으로 받아들이기.",
+      "visualAlt": "화가 토를 데우는 날의 남녀 모델 스타일"
+    }
+  }
+}

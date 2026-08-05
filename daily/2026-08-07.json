@@ -1,48 +1,48 @@
 {
-  "id": "2026-08-06",
-  "date": "2026-08-06",
-  "status": "published",
+  "id": "2026-08-07",
+  "date": "2026-08-07",
+  "status": "preview",
   "elementCycle": {
-    "source": "earth",
-    "target": "metal",
+    "source": "metal",
+    "target": "water",
     "relationship": "generating"
   },
   "visual": {
-    "src": "./assets/daily/models/2026-08-06.jpg",
+    "src": "./assets/daily/models/2026-08-07.jpg",
     "position": "center top"
   },
   "locales": {
     "ja": {
       "locale": "ja-JP",
-      "dateDisplay": "2026.08.06（木）",
+      "dateDisplay": "2026.08.07（金）",
       "theme": {
-        "title": "土が金を生む日",
-        "displayTitle": "土が金を\n生む日",
+        "title": "金が水を澄ませる日",
+        "displayTitle": "金が水を\n澄ませる日",
         "subtitle": "色数を増やさず、素材と余白で今日の流れを整える日です。"
       },
       "colors": {
         "recommended": [
           {
-            "name": "アイボリー",
-            "hex": "#f1ead8"
+            "name": "白銀",
+            "hex": "#deded9"
           },
           {
-            "name": "淡金",
-            "hex": "#c5a768"
+            "name": "薄水色",
+            "hex": "#a9c5cc"
           },
           {
-            "name": "石のグレー",
-            "hex": "#a7a39a"
+            "name": "墨紺",
+            "hex": "#273747"
           }
         ],
         "avoid": [
           {
-            "name": "濃い緑",
-            "hex": "#314d39"
+            "name": "砂っぽい黄",
+            "hex": "#b99b55"
           },
           {
-            "name": "強い赤",
-            "hex": "#bc2f25"
+            "name": "くすんだ茶",
+            "hex": "#7a5b44"
           }
         ]
       },
@@ -72,40 +72,40 @@
         }
       ],
       "dailyNote": "今日は、服の輪郭を静かに整える。",
-      "visualCaption": "土の安定から、金の澄んだ輪郭へ。",
-      "visualAlt": "土が金を生む日の男女モデルの装い"
+      "visualCaption": "金の端正さが、水の透明感を呼ぶ。",
+      "visualAlt": "金が水を澄ませる日の男女モデルの装い"
     },
     "zh": {
       "locale": "zh-CN",
-      "dateDisplay": "2026.08.06（周四）",
+      "dateDisplay": "2026.08.07（周五）",
       "theme": {
-        "title": "土生金的一天",
-        "displayTitle": "土生金\n的一天",
+        "title": "金生水的一天",
+        "displayTitle": "金生水\n的一天",
         "subtitle": "少一点颜色堆叠，多一点材质和留白，今天的穿搭会更顺。"
       },
       "colors": {
         "recommended": [
           {
-            "name": "象牙白",
-            "hex": "#f1ead8"
+            "name": "白银",
+            "hex": "#deded9"
           },
           {
-            "name": "浅金",
-            "hex": "#c5a768"
+            "name": "浅水蓝",
+            "hex": "#a9c5cc"
           },
           {
-            "name": "石灰色",
-            "hex": "#a7a39a"
+            "name": "墨蓝",
+            "hex": "#273747"
           }
         ],
         "avoid": [
           {
-            "name": "深绿",
-            "hex": "#314d39"
+            "name": "沙黄色",
+            "hex": "#b99b55"
           },
           {
-            "name": "强红",
-            "hex": "#bc2f25"
+            "name": "灰棕",
+            "hex": "#7a5b44"
           }
         ]
       },
@@ -135,40 +135,40 @@
         }
       ],
       "dailyNote": "今天，把衣服轮廓整理清楚就很好。",
-      "visualCaption": "从土的稳定，走向金的清晰。",
-      "visualAlt": "土生金的一天的男女模特穿搭"
+      "visualCaption": "金的利落，唤出水的透明。",
+      "visualAlt": "金生水的一天的男女模特穿搭"
     },
     "en": {
       "locale": "en",
-      "dateDisplay": "2026.08.06（Thu）",
+      "dateDisplay": "2026.08.07（Fri）",
       "theme": {
-        "title": "Earth Creates Metal",
-        "displayTitle": "Earth Creates\nMetal",
+        "title": "Metal Clears Water",
+        "displayTitle": "Metal Clears\nWater",
         "subtitle": "A day to use texture and space rather than too many colors."
       },
       "colors": {
         "recommended": [
           {
-            "name": "Ivory",
-            "hex": "#f1ead8"
+            "name": "White silver",
+            "hex": "#deded9"
           },
           {
-            "name": "Pale gold",
-            "hex": "#c5a768"
+            "name": "Pale water blue",
+            "hex": "#a9c5cc"
           },
           {
-            "name": "Stone grey",
-            "hex": "#a7a39a"
+            "name": "Ink navy",
+            "hex": "#273747"
           }
         ],
         "avoid": [
           {
-            "name": "Deep green",
-            "hex": "#314d39"
+            "name": "Sandy yellow",
+            "hex": "#b99b55"
           },
           {
-            "name": "Strong red",
-            "hex": "#bc2f25"
+            "name": "Dusty brown",
+            "hex": "#7a5b44"
           }
         ]
       },
@@ -198,40 +198,40 @@
         }
       ],
       "dailyNote": "Let the outline of your clothes do the quiet work.",
-      "visualCaption": "From earth's steadiness to metal's clear edge.",
-      "visualAlt": "Male and female models styled for Earth Creates Metal"
+      "visualCaption": "Metal's clean edge calls in water's clarity.",
+      "visualAlt": "Male and female models styled for Metal Clears Water"
     },
     "ko": {
       "locale": "ko-KR",
-      "dateDisplay": "2026.08.06（목）",
+      "dateDisplay": "2026.08.07（금）",
       "theme": {
-        "title": "토가 금을 낳는 날",
-        "displayTitle": "토가 금을\n낳는 날",
+        "title": "금이 물을 맑게 하는 날",
+        "displayTitle": "금이 물을\n맑게 하는 날",
         "subtitle": "색을 많이 쓰기보다 소재와 여백으로 오늘의 흐름을 정리하는 날입니다."
       },
       "colors": {
         "recommended": [
           {
-            "name": "아이보리",
-            "hex": "#f1ead8"
+            "name": "화이트 실버",
+            "hex": "#deded9"
           },
           {
-            "name": "연한 골드",
-            "hex": "#c5a768"
+            "name": "연한 물빛",
+            "hex": "#a9c5cc"
           },
           {
-            "name": "스톤 그레이",
-            "hex": "#a7a39a"
+            "name": "먹빛 네이비",
+            "hex": "#273747"
           }
         ],
         "avoid": [
           {
-            "name": "짙은 초록",
-            "hex": "#314d39"
+            "name": "모래빛 노랑",
+            "hex": "#b99b55"
           },
           {
-            "name": "강한 빨강",
-            "hex": "#bc2f25"
+            "name": "탁한 브라운",
+            "hex": "#7a5b44"
           }
         ]
       },
@@ -261,8 +261,8 @@
         }
       ],
       "dailyNote": "오늘은 옷의 윤곽을 조용히 정돈하세요.",
-      "visualCaption": "토의 안정에서 금의 맑은 윤곽으로.",
-      "visualAlt": "토가 금을 낳는 날의 남녀 모델 스타일"
+      "visualCaption": "금의 단정함이 물의 투명함을 부릅니다.",
+      "visualAlt": "금이 물을 맑게 하는 날의 남녀 모델 스타일"
     }
   }
 }
